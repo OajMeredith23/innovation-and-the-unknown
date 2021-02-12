@@ -5,10 +5,6 @@ const natural = require('natural');
 const SpellCorrector = require('spelling-corrector');
 const SW = require('stopword');
 
-// const tf = require("@tensorflow/tfjs");
-// const tfn = require("@tensorflow/tfjs-node");
-// const handler = tfn.io.fileSystem("./my-model.json");
-
 const router = express.Router();
 
 const spellCorrector = new SpellCorrector();
