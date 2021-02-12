@@ -77,34 +77,35 @@ function shuffleArray(array) {
 
     // // --- MODEL TRAINING, REMOVE THIS IF MODEL HAS BEEN TRAINED AS JSON FILE ---
     // // Define our model with several hidden layers
-    // const model = tf.sequential();
-    // model.add(tf.layers.dense({ units: 100, activation: "relu", inputShape: [512] }));
-    // model.add(tf.layers.dense({ units: 50, activation: "relu" }));
-    // model.add(tf.layers.dense({ units: 25, activation: "relu" }));
-    // model.add(tf.layers.dense({
-    //     units: emotions.length,
-    //     activation: "softmax"
-    // }));
+    const model = tf.sequential();
+    model.add(tf.layers.dense({ units: 100, activation: "relu", inputShape: [512] }));
+    model.add(tf.layers.dense({ units: 50, activation: "relu" }));
+    model.add(tf.layers.dense({ units: 25, activation: "relu" }));
+    model.add(tf.layers.dense({
+        units: emotions.length,
+        activation: "softmax"
+    }));
 
-    // model.compile({
-    //     optimizer: tf.train.adam(),
-    //     loss: "categoricalCrossentropy",
-    //     metrics: ["accuracy"]
-    // });
+    model.compile({
+        optimizer: tf.train.adam(),
+        loss: "categoricalCrossentropy",
+        metrics: ["accuracy"]
+    });
 
-    // const xs = embeddings;
-    // const ys = tf.stack(outputs.map(x => tf.tensor1d(x)));
-    // await model.fit(xs, ys, {
-    //     epochs: 50,
-    //     shuffle: true,
-    //     callbacks: {
-    //         onEpochEnd: (epoch, logs) => {
-    //             setText(`Training... Epoch #${epoch} (${logs.acc})`);
-    //             console.log("Epoch #", epoch, logs);
-    //         }
-    //     }
-    // });
-    // const saveResult = await model.save('downloads://my-model');
+    const xs = embeddings;
+    const ys = tf.stack(outputs.map(x => tf.tensor1d(x)));
+    await model.fit(xs, ys, {
+        epochs: 50,
+        shuffle: true,
+        callbacks: {
+            onEpochEnd: (epoch, logs) => {
+                setText(`Training... Epoch #${epoch} (${logs.acc})`);
+                console.log("Epoch #", epoch, logs);
+            }
+        }
+    });
+    const saveResult = await model.save('downloads://my-model');
+    // END TRAINING
 
     // --- DO NOT REMOVE CODE BELOW THIS LINE ---
 

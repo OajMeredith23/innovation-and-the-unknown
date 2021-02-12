@@ -15,5 +15,6 @@ This project already contains a trained model for you to use, but will still gen
 After the model has been generated it will save to your downloads folder.
 
 To prevent the model being auto-generated and only have results generated on input, follow instructions outlined in the code as to which area to remove. 
+![](./assets/code.png)
 
-![alt text](./assets/training.png "Logo Title Text 1")
+![](./assets/training.png)
