@@ -10,7 +10,7 @@ The model will begin training once the page has loaded, the model is then saved 
 
 The model can then be run immediately. 
 
-###Using the model
+### Using the model
 This project already contains a trained model for you to use, but will still generate one automatically when loaded.
 After the model has been generated it will save to your downloads folder.
 
