@@ -6,8 +6,6 @@
     "dev": "nodemon ./bin/www"
   },
   "dependencies": {
-    "@tensorflow/tfjs": "^3.0.0",
-    "@tensorflow/tfjs-node": "^3.0.0",
     "apos-to-lex-form": "^1.0.5",
     "cookie-parser": "^1.4.5",
     "debug": "~2.6.9",
