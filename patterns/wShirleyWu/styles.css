@@ -1,0 +1,38 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body, html {
+  font-family: 'EB Garamond', serif;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Cardo', serif;
+}
+
+h1 {
+  font-size: 4em;
+}
+
+p {
+  margin-bottom: 1em;
+}
+
+.container {
+  max-width: 1080px;
+  margin: 4em auto;
+  padding: 2em;
+}
+
+svg {
+  border: 1px solid grey;
+}
+
+path {
+  stroke: whitesmoke;
+  fill: #444;
+}
+/*# sourceMappingURL=styles.css.map */
