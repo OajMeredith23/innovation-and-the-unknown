@@ -1,0 +1,22 @@
+{
+  "name": "innovation-and-the-unknown",
+  "version": "1.0.0",
+  "description": "Ravensbourne UX/UI Design third year project.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OajMeredith23/innovation-and-the-unknown.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OajMeredith23/innovation-and-the-unknown/issues"
+  },
+  "homepage": "https://github.com/OajMeredith23/innovation-and-the-unknown#readme",
+  "dependencies": {
+    "netlify-lambda": "^2.0.3"
+  }
+}
