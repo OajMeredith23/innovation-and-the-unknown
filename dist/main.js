@@ -17,6 +17,7 @@ async function getData(text) {
     };
 
     const res = await fetch(URL, requestOptions)
+    console.log({ res })
 
     return res
     // .then(response => response.text())
