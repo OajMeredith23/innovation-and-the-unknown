@@ -4,7 +4,8 @@
   "description": "Ravensbourne UX/UI Design third year project.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lamba-serve": "netlify-lambda serve api",
+    "lamba-build": "netlify-lambda build api"
   },
   "repository": {
     "type": "git",
