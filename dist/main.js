@@ -1,17 +1,37 @@
+
 var myHeaders = new Headers();
 console.log({ myHeaders })
 myHeaders.append("Content-Type", "application/json");
 
-var raw = JSON.stringify({ "name": "Tom" });
+// const URL = 'https://dazzling-mahavira-33ecc2.netlify.app/.netlify/functions/getusers'
+const URL = 'http://localhost:9000/getusers'
 
-var requestOptions = {
-    method: 'GET',
-    headers: myHeaders,
-    // body: raw,
-    redirect: 'follow'
-};
 
-fetch("https://dazzling-mahavira-33ecc2.netlify.app/.netlify/functions/getusers", requestOptions)
-    .then(response => response.text())
-    .then(result => console.log(result))
-    .catch(error => console.log('error', error));
+async function getData(text) {
+
+    var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        body: JSON.stringify({ text }),
+        redirect: 'follow'
+    };
+
+    const res = await fetch(URL, requestOptions)
+
+    return res
+    // .then(response => response.text())
+    // .then(result => console.log(result))
+    // .catch(error => console.log('error', error));
+
+}
+
+const btn = document.querySelector('#analyse');
+const inputArea = document.querySelector('#input_text');
+
+
+btn.addEventListener('click', async () => {
+
+    console.log(inputArea)
+    getData(inputArea.value)
+    // const analysis = getData(text)
+})
