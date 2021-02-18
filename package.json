@@ -18,6 +18,9 @@
   },
   "homepage": "https://github.com/OajMeredith23/innovation-and-the-unknown#readme",
   "dependencies": {
-    "netlify-lambda": "^2.0.3"
+    "axios": "^0.21.1",
+    "express": "^4.17.1",
+    "netlify-lambda": "^2.0.3",
+    "serverless-http": "^2.7.0"
   }
 }
