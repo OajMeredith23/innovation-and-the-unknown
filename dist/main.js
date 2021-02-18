@@ -10,7 +10,7 @@ const URL = 'https://dazzling-mahavira-33ecc2.netlify.app/.netlify/functions/get
 async function getData(text) {
 
     var requestOptions = {
-        method: 'GET',
+        method: 'POST',
         headers: myHeaders,
         body: JSON.stringify({ text }),
         redirect: 'follow'
@@ -32,14 +32,6 @@ const inputArea = document.querySelector('#input_text');
 btn.addEventListener('click', async () => {
 
     console.log(inputArea)
-    // axios({
-    //     method: 'get',
-    //     url: URL,
-    //     responseType: 'stream'
-    //   })
-    //     .then(function (response) {
-    //       response.data.pipe(fs.createWriteStream('ada_lovelace.jpg'))
-    //     });
     getData(inputArea.value)
     // const analysis = getData(text)
 })
