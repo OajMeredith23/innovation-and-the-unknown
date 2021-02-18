@@ -58,14 +58,14 @@ function shuffleArray(array) {
 
 
     // --- CAN REMOVE AFTER TRAINING ---
-    let outputs = lines.slice(0, numSamples).map(line => {
-        let categories = line.split("\t")[1].split(",").map(x => parseInt(x));
-        let output = [];
-        for (let i = 0; i < emotions.length; i++) {
-            output.push(categories.includes(i) ? 1 : 0);
-        }
-        return output;
-    });
+    // let outputs = lines.slice(0, numSamples).map(line => {
+    //     let categories = line.split("\t")[1].split(",").map(x => parseInt(x));
+    //     let output = [];
+    //     for (let i = 0; i < emotions.length; i++) {
+    //         output.push(categories.includes(i) ? 1 : 0);
+    //     }
+    //     return output;
+    // });
     // --- END CAN REMOVE AFTER TRAINING ---
 
     // Load the universal sentence encoder // DON'T REMOVE THIS
@@ -112,12 +112,12 @@ function shuffleArray(array) {
     // CODE FROM HERE LOADS THE MODEL AND RUNS THE TENSORFLOW ALGORITHM ON EACH KEY PRESS, THE RESULT IS DISPLAY
     const loadingStatus = document.querySelector('#loading_status');
 
-    async function analyseText() {
+    setText("Loading USE...");
+    let encoder = await use.load();
+    setText("Loaded!");
+    let embeddings = await encoder.embed(sentences);
 
-        // setText("Loading USE...");
-        // setText("Loaded!");
-        let encoder = await use.load();
-        let embeddings = await encoder.embed(sentences);
+    async function analyseText() {
 
         const model = await tf.loadLayersModel('./my-model.json')
 
