@@ -4,8 +4,8 @@
   "description": "Ravensbourne UX/UI Design third year project.",
   "main": "index.js",
   "scripts": {
-    "lamba-serve": "netlify-lambda serve api",
-    "lamba-build": "netlify-lambda build api"
+    "lambda-serve": "netlify-lambda serve api",
+    "lambda-build": "netlify-lambda build api"
   },
   "repository": {
     "type": "git",
