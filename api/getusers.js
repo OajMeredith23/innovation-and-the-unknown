@@ -1,5 +1,5 @@
-// const tf = require('@tensorflow/tfjs-node');
-import tf from '@tensorflow/tfjs-node'
+const tf = require('@tensorflow/tfjs-node');
+// import tf from '@tensorflow/tfjs-node'
 import { format } from 'date-fns'
 
 export async function handler(event, context) {
