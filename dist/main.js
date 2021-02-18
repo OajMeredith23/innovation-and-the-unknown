@@ -16,13 +16,10 @@ async function getData(text) {
         redirect: 'follow'
     };
 
-    const res = await fetch(URL, requestOptions)
-    console.log({ res })
-
-    return res
-    // .then(response => response.text())
-    // .then(result => console.log(result))
-    // .catch(error => console.log('error', error));
+    fetch(URL, requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
 
 }
 
