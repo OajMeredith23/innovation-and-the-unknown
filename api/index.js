@@ -10,8 +10,11 @@ app.listen(PORT, () => { console.log(`Listening on Port: http://localhost:${PORT
 
 
 app.get('/', async (req, res) => {
-
-    console.log("hello-wooorld")
     res.send('hello-world')
 });
 
+app.get('/data', async (req, res) => {
+    res.send({
+        oh: 'hi'
+    })
+});
