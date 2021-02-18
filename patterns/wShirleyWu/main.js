@@ -12,25 +12,16 @@ const triangle = 'M69.2,46c46,0-102.3,82.9-62.3-22.5c0,0,4.3-24.2,33.3-23.5';
 
 (async () => {
 
-    // const svg = d3.select('#tiles').append('svg')
-    // .attr('width', size)
-    // .attr('height', size);
+    // Load Movies from json file 
+    // Could be from database
     let movies = await d3.json('./movies.json')
-    const data = _.values(movies);
+    const data = _.values(movies); // Convert to an array using Lodash
 
-    const votesMinMax = d3.extent(data, d => +d.imdbVotes.replace(',', '.'));
-    const ratingMinMax = d3.extent(data, d => +d.imdbRating);
+    const votesMinMax = d3.extent(data, d => +d.imdbVotes.replace(',', '.')); // Gets the highest and lowest score of imdb votes (user votes)
+    const ratingMinMax = d3.extent(data, d => +d.imdbRating); // Gets the highest and lowest score of imdb ratings 
 
     const sizeScale = d3.scaleLinear().domain(ratingMinMax).range([0.25, 1]);
     const numPetalScale = d3.scaleQuantize().domain(votesMinMax).range([3, 6, 9, 18]);
-
-    // const d = data[92];
-
-    // const imdbVotes = +d.imdbVotes.replace(',', '.');
-
-    // console.log({ petalSize })
-
-
 
     const flowersData = data.map(d => {
         const numPetals = numPetalScale(d.imdbVotes.replace(',', '.'));
@@ -48,10 +39,6 @@ const triangle = 'M69.2,46c46,0-102.3,82.9-62.3-22.5c0,0,4.3-24.2,33.3-23.5';
         }
     });
 
-    console.log(flowersData[2])
-
-
-
     const flowers = d3.select('#tiles')
         .selectAll('div')
         .data(flowersData)
@@ -62,6 +49,7 @@ const triangle = 'M69.2,46c46,0-102.3,82.9-62.3-22.5c0,0,4.3-24.2,33.3-23.5';
     // Add title
     flowers.append('h4').attr('class', 'tile-title').text(d => d.title)
 
+    // Create flower in SVG
     flowers
         .append('div').attr('class', 'data-representation')
         .append('svg')
@@ -77,10 +65,6 @@ const triangle = 'M69.2,46c46,0-102.3,82.9-62.3-22.5c0,0,4.3-24.2,33.3-23.5';
         .attr('fill', (d, i) => d3.interpolateWarm(d.angle / 360))
         .attr('stroke', '#f5f5f5')
 
-
-
-
-    console.log(d3)
 
 
     const t = document.querySelector('.tile')
