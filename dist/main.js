@@ -1,10 +1,10 @@
 
-var myHeaders = new Headers();
-console.log({ myHeaders })
-myHeaders.append("Content-Type", "application/json");
+// const axios = require('axios');
 
-// const URL = 'https://dazzling-mahavira-33ecc2.netlify.app/.netlify/functions/getusers'
-const URL = 'http://localhost:9000/getusers'
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+const URL = 'https://dazzling-mahavira-33ecc2.netlify.app/.netlify/functions/getusers'
+// const URL = 'http://localhost:9000/getusers'
 
 
 async function getData(text) {
@@ -32,6 +32,14 @@ const inputArea = document.querySelector('#input_text');
 btn.addEventListener('click', async () => {
 
     console.log(inputArea)
+    // axios({
+    //     method: 'get',
+    //     url: URL,
+    //     responseType: 'stream'
+    //   })
+    //     .then(function (response) {
+    //       response.data.pipe(fs.createWriteStream('ada_lovelace.jpg'))
+    //     });
     getData(inputArea.value)
     // const analysis = getData(text)
 })
