@@ -69,10 +69,10 @@ function shuffleArray(array) {
     // --- END CAN REMOVE AFTER TRAINING ---
 
     // Load the universal sentence encoder // DON'T REMOVE THIS
-    setText("Loading USE...");
-    let encoder = await use.load();
-    setText("Loaded!");
-    let embeddings = await encoder.embed(sentences);
+    // setText("Loading USE...");
+    // let encoder = await use.load();
+    // setText("Loaded!");
+    // let embeddings = await encoder.embed(sentences);
 
 
     // // --- MODEL TRAINING, REMOVE THIS IF MODEL HAS BEEN TRAINED AS JSON FILE ---
@@ -113,9 +113,11 @@ function shuffleArray(array) {
     const loadingStatus = document.querySelector('#loading_status');
 
     async function analyseText() {
-        loadingStatus.innerText = "Loading....";
 
-        // UNCOMMENT THIS TO USE SAVED MODEL 
+        // setText("Loading USE...");
+        // setText("Loaded!");
+        let encoder = await use.load();
+        let embeddings = await encoder.embed(sentences);
 
         const model = await tf.loadLayersModel('./my-model.json')
 
