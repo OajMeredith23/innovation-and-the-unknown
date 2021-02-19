@@ -1,3 +1,5 @@
+const loadingStatus = document.querySelector('#loading_status');
+
 const emotions = [
     "admiration",
     "amusement",
@@ -48,7 +50,7 @@ function shuffleArray(array) {
 
     // Randomize the lines
     // --- CAN REMOVE AFTER TRAINING ---
-    shuffleArray(lines);
+    // shuffleArray(lines);
 
     const numSamples = 200;
     let sentences = lines.slice(0, numSamples).map(line => {
@@ -69,10 +71,10 @@ function shuffleArray(array) {
     // --- END CAN REMOVE AFTER TRAINING ---
 
     // Load the universal sentence encoder // DON'T REMOVE THIS
-    // setText("Loading USE...");
-    // let encoder = await use.load();
-    // setText("Loaded!");
-    // let embeddings = await encoder.embed(sentences);
+    setText("Loading USE...");
+    let encoder = await use.load();
+    setText("Loaded!");
+    let embeddings = await encoder.embed(sentences);
 
 
     // // --- MODEL TRAINING, REMOVE THIS IF MODEL HAS BEEN TRAINED AS JSON FILE ---
@@ -110,24 +112,28 @@ function shuffleArray(array) {
     // --- DO NOT REMOVE CODE BELOW THIS LINE ---
 
     // CODE FROM HERE LOADS THE MODEL AND RUNS THE TENSORFLOW ALGORITHM ON EACH KEY PRESS, THE RESULT IS DISPLAY
-    const loadingStatus = document.querySelector('#loading_status');
 
     setText("Loading USE...");
-    let encoder = await use.load();
     setText("Loaded!");
+
+
+
+    let text_input = document.getElementById('user-text');
+
+
+    let encoder = await use.load();
     let embeddings = await encoder.embed(sentences);
 
     async function analyseText() {
 
-        const model = await tf.loadLayersModel('./my-model.json')
 
-        let text = document.getElementById('user-text').value;
+        const model = await tf.loadLayersModel('./my-model.json')
+        const text = text_input.value
 
         document.getElementById("text").innerText = text;
 
         let vector = await encoder.embed([text]);
         let prediction = await model.predict(vector).data();
-        console.log({ prediction })
 
         // Get the index of the highest value in the prediction
         let id = prediction.indexOf(Math.max(...prediction));
@@ -141,15 +147,29 @@ function shuffleArray(array) {
             .sort((a, b) => b.value - a.value);
 
         document.querySelector('#results').innerText = JSON.stringify(predictions, null, 2)
-        console.log({ predictions })
-
 
         setText(`Result: ${emotions[id]}`);
 
-        loadingStatus.innerText = "";
     }
 
-    analyseText()
-    document.addEventListener('keyup', async () => analyseText());
+
+    const SPACEBAR = 32;
+    const FULLSTOP = 190;
+    const ENTER = 13
+
+    text_input.onkeyup = async function (e) {
+
+        const key = e.which || e.keyCode;
+
+        if (key === ENTER) {
+            console.log("1 =>", text_input.value)
+            loadingStatus.innerText = "Analysing...";
+
+            await analyseText(text.value);
+            loadingStatus.innerText = "";
+        }
+
+    }
+
 
 })();
