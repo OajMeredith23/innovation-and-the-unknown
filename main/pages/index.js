@@ -1,12 +1,9 @@
 import Head from 'next/head'
 import { useEffect, useState, useRef } from 'react'
-import emotionsModel from './data/my-model.json'
-// console.log(emotionsModel)
 import * as tf from '@tensorflow/tfjs'
 import * as use from '@tensorflow-models/universal-sentence-encoder'
 
 import styles from '../styles/Home.module.css'
-// import emotions from './data/emotions'
 
 export default function Home() {
 
@@ -14,7 +11,8 @@ export default function Home() {
   const [encoder, setEncoder] = useState(null);
   const [model, setModel] = useState(null);
   const [tempResult, setTempResult] = useState({});
-  const textInput = useRef(null)
+  const textInput = useRef(null);
+
   async function loadEncoder() {
     const sentenceEncoder = await use.load();
     setEncoder(sentenceEncoder,);
