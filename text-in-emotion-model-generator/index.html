@@ -11,7 +11,7 @@
         <textarea name="" id="user-text" cols="30" rows="10"></textarea>
         <p id="results"></p>
         <script src="model.js"></script>
-        <!-- <script>
+        <script>
         const emotions = [
             "admiration",
             "amusement",
@@ -83,34 +83,34 @@
             let embeddings = await encoder.embed( sentences );
 
             // Define our model with several hidden layers
-            // const model = tf.sequential();
-            // model.add(tf.layers.dense( { units: 100, activation: "relu", inputShape: [ 512 ] } ) );
-            // model.add(tf.layers.dense( { units: 50, activation: "relu" } ) );
-            // model.add(tf.layers.dense( { units: 25, activation: "relu" } ) );
-            // model.add(tf.layers.dense( {
-            //     units: emotions.length,
-            //     activation: "softmax"
-            // } ) );
+            const model = tf.sequential();
+            model.add(tf.layers.dense( { units: 100, activation: "relu", inputShape: [ 512 ] } ) );
+            model.add(tf.layers.dense( { units: 50, activation: "relu" } ) );
+            model.add(tf.layers.dense( { units: 25, activation: "relu" } ) );
+            model.add(tf.layers.dense( {
+                units: emotions.length,
+                activation: "softmax"
+            } ) );
 
-            // model.compile({
-            //     optimizer: tf.train.adam(),
-            //     loss: "categoricalCrossentropy",
-            //     metrics: [ "accuracy" ]
-            // });
+            model.compile({
+                optimizer: tf.train.adam(),
+                loss: "categoricalCrossentropy",
+                metrics: [ "accuracy" ]
+            });
 
-            // const xs = embeddings;
-            // const ys = tf.stack( outputs.map( x => tf.tensor1d( x ) ) );
-            // await model.fit( xs, ys, {
-            //     epochs: 50,
-            //     shuffle: true,
-            //     callbacks: {
-            //         onEpochEnd: ( epoch, logs ) => {
-            //             setText( `Training... Epoch #${epoch} (${logs.acc})` );
-            //             console.log( "Epoch #", epoch, logs );
-            //         }
-            //     }
-            // } );
-            // const saveResult = await model.save('downloads://my-model-1');
+            const xs = embeddings;
+            const ys = tf.stack( outputs.map( x => tf.tensor1d( x ) ) );
+            await model.fit( xs, ys, {
+                epochs: 50,
+                shuffle: true,
+                callbacks: {
+                    onEpochEnd: ( epoch, logs ) => {
+                        setText( `Training... Epoch #${epoch} (${logs.acc})` );
+                        console.log( "Epoch #", epoch, logs );
+                    }
+                }
+            } );
+            const saveResult = await model.save('downloads://my-model-1');
             const model = await tf.loadLayersModel('./my-model.json')
             const loadingStatus = document.getElementById('loading_status');
 
@@ -152,32 +152,32 @@
             document.addEventListener('keyup', async () => analyseText());
 
 
-            // // Test prediction every 5s
-            // setInterval( async () => {
-            //     // Pick random text
-            //     let line = lines[ Math.floor( Math.random() * lines.length ) ];
-            //     let sentence = line.split( "\t" )[ 0 ];
-            //     // console.log({sentence})
-            //     // let categories = line.split( "\t" )[ 1 ].split( "," ).map( x => parseInt( x ) );
-            //     document.getElementById( "text" ).innerText = sentence;
+            // Test prediction every 5s
+            setInterval( async () => {
+                // Pick random text
+                let line = lines[ Math.floor( Math.random() * lines.length ) ];
+                let sentence = line.split( "\t" )[ 0 ];
+                // console.log({sentence})
+                // let categories = line.split( "\t" )[ 1 ].split( "," ).map( x => parseInt( x ) );
+                document.getElementById( "text" ).innerText = sentence;
 
-            //     let vector = await encoder.embed( [ sentence ] );
-            //     let prediction = await model.predict( vector ).data();
+                let vector = await encoder.embed( [ sentence ] );
+                let prediction = await model.predict( vector ).data();
 
-            //     let predictions = emotions.map((emotion,i) => {
-            //         console.log(i, "->", emotion, "=>", prediction[i]);
-            //         return{
-            //             category: emotion,
-            //             // value: prediction[i].toFixed(0) || 0
-            //         }
-            //         })
-            //         .sort((a, b) => b.value - a.value);
+                let predictions = emotions.map((emotion,i) => {
+                    console.log(i, "->", emotion, "=>", prediction[i]);
+                    return{
+                        category: emotion,
+                        // value: prediction[i].toFixed(0) || 0
+                    }
+                    })
+                    .sort((a, b) => b.value - a.value);
 
-            //     // Get the index of the highest value in the prediction
-            //     let id = prediction.indexOf( Math.max( ...prediction ) );
-            //     setText( `Result: ${emotions[ id ]}}` );
-            // }, 5000 );
+                // Get the index of the highest value in the prediction
+                let id = prediction.indexOf( Math.max( ...prediction ) );
+                setText( `Result: ${emotions[ id ]}}` );
+            }, 5000 );
         })();
-        </script> -->
+        </script>
     </body>
 </html>
