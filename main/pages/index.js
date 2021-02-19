@@ -1,65 +1,118 @@
 import Head from 'next/head'
+import { useEffect, useState, useRef } from 'react'
+import emotionsModel from './data/my-model.json'
+// console.log(emotionsModel)
+import * as tf from '@tensorflow/tfjs'
+import * as use from '@tensorflow-models/universal-sentence-encoder'
+
 import styles from '../styles/Home.module.css'
+// import emotions from './data/emotions'
 
 export default function Home() {
+
+  const [loading, setLoading] = useState(true);
+  const [encoder, setEncoder] = useState(null);
+  const [model, setModel] = useState(null);
+  const [tempResult, setTempResult] = useState({});
+  const textInput = useRef(null)
+  async function loadEncoder() {
+    const sentenceEncoder = await use.load();
+    setEncoder(sentenceEncoder,);
+  }
+
+  async function fetchModel() {
+
+    try {
+      const model = await tf.loadLayersModel("https://storage.googleapis.com/innovation_and_the_unknown/my-model.json");
+      setModel(model);
+      console.log(model)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async function setupTensorflow() {
+    await loadEncoder();
+    await fetchModel();
+    return setLoading(false);
+  }
+
+
+  useEffect(() => {
+    setupTensorflow();
+  }, [])
+
+
+  const handleTextInput = async (e) => {
+    e.preventDefault();
+    const ENTER_KEY = 13
+    if (e.keyCode === ENTER_KEY) {
+      const analysis = await analyseText(model, encoder, textInput.current.value);
+      setTempResult(analysis);
+      console.log(analysis)
+    }
+  }
+
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <div>
+      <h1>{loading ? 'loading...' : 'done'}</h1>
+      <textarea
+        ref={textInput}
+        onKeyUp={handleTextInput}
+        cols="30"
+        rows="10"
+      ></textarea>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
+      <p>{JSON.stringify(tempResult, null, 2)}</p>
     </div>
   )
+}
+
+const analyseText = async (model, encoder, text) => {
+
+  const emotions = [
+    "admiration",
+    "amusement",
+    "anger",
+    "annoyance",
+    "approval",
+    "caring",
+    "confusion",
+    "curiosity",
+    "desire",
+    "disappointment",
+    "disapproval",
+    "disgust",
+    "embarrassment",
+    "excitement",
+    "fear",
+    "gratitude",
+    "grief",
+    "joy",
+    "love",
+    "nervousness",
+    "optimism",
+    "pride",
+    "realization",
+    "relief",
+    "remorse",
+    "sadness",
+    "surprise",
+    "neutral"
+  ];
+
+  let vector = await encoder.embed([text]);
+  let prediction = await model.predict(vector).data();
+
+
+  let predictions = emotions.map((emotion, i) => {
+    return {
+      category: emotion,
+      value: prediction[i].toFixed(2)
+    }
+  })
+    .sort((a, b) => b.value - a.value);
+
+  return predictions
+
 }

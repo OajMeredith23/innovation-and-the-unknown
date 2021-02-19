@@ -60,14 +60,15 @@ function shuffleArray(array) {
 
 
     // --- CAN REMOVE AFTER TRAINING ---
-    // let outputs = lines.slice(0, numSamples).map(line => {
-    //     let categories = line.split("\t")[1].split(",").map(x => parseInt(x));
-    //     let output = [];
-    //     for (let i = 0; i < emotions.length; i++) {
-    //         output.push(categories.includes(i) ? 1 : 0);
-    //     }
-    //     return output;
-    // });
+    console.log("lines => ", lines)
+    let outputs = lines.slice(0, numSamples).map(line => {
+        let categories = line.split("\t")[1].split(",").map(x => parseInt(x));
+        let output = [];
+        for (let i = 0; i < emotions.length; i++) {
+            output.push(categories.includes(i) ? 1 : 0);
+        }
+        return output;
+    });
     // --- END CAN REMOVE AFTER TRAINING ---
 
     // Load the universal sentence encoder // DON'T REMOVE THIS
@@ -77,36 +78,36 @@ function shuffleArray(array) {
     let embeddings = await encoder.embed(sentences);
 
 
-    // // --- MODEL TRAINING, REMOVE THIS IF MODEL HAS BEEN TRAINED AS JSON FILE ---
-    // // Define our model with several hidden layers
-    // const model = tf.sequential();
-    // model.add(tf.layers.dense({ units: 100, activation: "relu", inputShape: [512] }));
-    // model.add(tf.layers.dense({ units: 50, activation: "relu" }));
-    // model.add(tf.layers.dense({ units: 25, activation: "relu" }));
-    // model.add(tf.layers.dense({
-    //     units: emotions.length,
-    //     activation: "softmax"
-    // }));
+    // --- MODEL TRAINING, REMOVE THIS IF MODEL HAS BEEN TRAINED AS JSON FILE ---
+    // Define our model with several hidden layers
+    const model = tf.sequential();
+    model.add(tf.layers.dense({ units: 100, activation: "relu", inputShape: [512] }));
+    model.add(tf.layers.dense({ units: 50, activation: "relu" }));
+    model.add(tf.layers.dense({ units: 25, activation: "relu" }));
+    model.add(tf.layers.dense({
+        units: emotions.length,
+        activation: "softmax"
+    }));
 
-    // model.compile({
-    //     optimizer: tf.train.adam(),
-    //     loss: "categoricalCrossentropy",
-    //     metrics: ["accuracy"]
-    // });
+    model.compile({
+        optimizer: tf.train.adam(),
+        loss: "categoricalCrossentropy",
+        metrics: ["accuracy"]
+    });
 
-    // const xs = embeddings;
-    // const ys = tf.stack(outputs.map(x => tf.tensor1d(x)));
-    // await model.fit(xs, ys, {
-    //     epochs: 50,
-    //     shuffle: true,
-    //     callbacks: {
-    //         onEpochEnd: (epoch, logs) => {
-    //             setText(`Training... Epoch #${epoch} (${logs.acc})`);
-    //             console.log("Epoch #", epoch, logs);
-    //         }
-    //     }
-    // });
-    // const saveResult = await model.save('downloads://my-model');
+    const xs = embeddings;
+    const ys = tf.stack(outputs.map(x => tf.tensor1d(x)));
+    await model.fit(xs, ys, {
+        epochs: 50,
+        shuffle: true,
+        callbacks: {
+            onEpochEnd: (epoch, logs) => {
+                setText(`Training... Epoch #${epoch} (${logs.acc})`);
+                console.log("Epoch #", epoch, logs);
+            }
+        }
+    });
+    const saveResult = await model.save('downloads://my-model');
     // END TRAINING
 
     // --- DO NOT REMOVE CODE BELOW THIS LINE ---
@@ -121,8 +122,6 @@ function shuffleArray(array) {
     let text_input = document.getElementById('user-text');
 
 
-    let encoder = await use.load();
-    let embeddings = await encoder.embed(sentences);
 
     async function analyseText() {
 
