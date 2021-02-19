@@ -6,8 +6,8 @@ const Container = styled.main`
   padding: .5em;
   max-width: 1280px; 
   margin: 0 auto;
-  border: 2px dashed grey; 
-  min-height: 100vh;
+  border: 1px dashed grey; 
+  min-height: 80vh;
 `
 function MyApp({ Component, pageProps }) {
   return (

@@ -15,7 +15,7 @@ export default function Home() {
 
   async function loadEncoder() {
     const sentenceEncoder = await use.load();
-    setEncoder(sentenceEncoder,);
+    setEncoder(sentenceEncoder);
   }
 
   async function fetchModel() {
@@ -23,7 +23,6 @@ export default function Home() {
     try {
       const model = await tf.loadLayersModel("https://storage.googleapis.com/innovation_and_the_unknown/my-model.json");
       setModel(model);
-      console.log(model)
     } catch (error) {
       console.error(error)
     }
