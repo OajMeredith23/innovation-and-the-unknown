@@ -21,26 +21,11 @@ export default function Home() {
   async function fetchModel() {
 
     try {
-      // const m = await fetch('https://innovation_and_the_unknown.storage.googleapis.com/my-model.json');
-      // const m = await fetch('https://innovation_and_the_unknown.storage.googleapis.com/my-model.json');
 
-      // var myHeaders = new Headers();
-      // myHeaders.append("Content-Type", "application/json");
-      // myHeaders.append("Access-Control-Request-Headers", "application/json");
-      // myHeaders.append("Access-Control-Request-Method", "application/json");
 
-      // var requestOptions = {
-      //   method: 'GET',
-      //   headers: myHeaders,
-      //   redirect: 'follow'
-      // };
+      const model = await tf.loadLayersModel("https://storage.googleapis.com/iatunknown/my-model.json");
+      // const model = await tf.loadLayersModel("https://iatunknown.storage.googleapis.com/my-model.json");
 
-      // const m = await fetch("https://innovation_and_the_unknown.storage.googleapis.com/my-model.json", requestOptions)
-
-      // console.log(await m.json())
-      // // const model = await tf.loadLayersModel(m)
-      const model = await tf.loadLayersModel("https://innovation_and_the_unknown.storage.googleapis.com/my-model.json");
-      // const model = await tf.loadLayersModel("https://storage.googleapis.com/innovation_and_the_unknown/my-model.json");
       setModel(model);
     } catch (error) {
       console.error(error)
@@ -72,6 +57,7 @@ export default function Home() {
   return (
     <div>
       <h1>{loading ? 'loading...' : 'done'}</h1>
+      <h2>{model ? 'Model ready' : 'awaiting model...'}</h2>
       <textarea
         ref={textInput}
         onKeyUp={handleTextInput}
