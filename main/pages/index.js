@@ -2,7 +2,7 @@ import Head from 'next/head'
 import { useEffect, useState, useRef } from 'react'
 import * as tf from '@tensorflow/tfjs'
 import * as use from '@tensorflow-models/universal-sentence-encoder'
-
+// import myModel from '../data/my-model.json'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
@@ -21,6 +21,24 @@ export default function Home() {
   async function fetchModel() {
 
     try {
+      // const m = await fetch('https://innovation_and_the_unknown.storage.googleapis.com/my-model.json');
+      // const m = await fetch('https://innovation_and_the_unknown.storage.googleapis.com/my-model.json');
+
+      // var myHeaders = new Headers();
+      // myHeaders.append("Content-Type", "application/json");
+      // myHeaders.append("Access-Control-Request-Headers", "application/json");
+      // myHeaders.append("Access-Control-Request-Method", "application/json");
+
+      // var requestOptions = {
+      //   method: 'GET',
+      //   headers: myHeaders,
+      //   redirect: 'follow'
+      // };
+
+      // const m = await fetch("https://innovation_and_the_unknown.storage.googleapis.com/my-model.json", requestOptions)
+
+      // console.log(await m.json())
+      // // const model = await tf.loadLayersModel(m)
       const model = await tf.loadLayersModel("https://storage.googleapis.com/innovation_and_the_unknown/my-model.json");
       setModel(model);
     } catch (error) {
