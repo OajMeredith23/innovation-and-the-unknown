@@ -1,6 +1,6 @@
 [
     {
-      "origin": ["http://localhost:3000", "https://innovation-and-the-unknown.vercel.app"],
+      "origin": ["*"],
       "method": ["GET"],
       "responseHeader": ["Content-Type/application-json"],
       "maxAgeSeconds": 3600

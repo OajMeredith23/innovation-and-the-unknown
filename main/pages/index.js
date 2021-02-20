@@ -39,8 +39,8 @@ export default function Home() {
 
       // console.log(await m.json())
       // // const model = await tf.loadLayersModel(m)
-      const model = await tf.loadLayersModel("https://innovation_and_the_unknown.storage.googleapis.com/my-model.json");
-      // const model = await tf.loadLayersModel("https://storage.googleapis.com/innovation_and_the_unknown/my-model.json");
+      // const model = await tf.loadLayersModel("https://innovation_and_the_unknown.storage.googleapis.com/my-model.json");
+      const model = await tf.loadLayersModel("https://storage.googleapis.com/innovation_and_the_unknown/my-model.json");
       setModel(model);
     } catch (error) {
       console.error(error)
