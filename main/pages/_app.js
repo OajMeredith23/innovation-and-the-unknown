@@ -1,4 +1,5 @@
-import Head from 'next/head'
+import Head from 'next/head';
+import Link from 'next/link';
 import '../styles/globals.css'
 import styled from 'styled-components';
 
@@ -13,13 +14,23 @@ function MyApp({ Component, pageProps }) {
   return (
     <Container>
       <Head>
-        <title>Create Next App</title>
+        <title>Innovation And The Unknown</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <NavBar>
+        <Link href="/">
+          Home
+        </Link>
+      </NavBar>
 
       <Component {...pageProps} />
     </Container>
   )
 }
 
+const NavBar = styled.nav`
+  padding: .5em; 
+  border-bottom: 1px solid #333;
+  margin-bottom: .5em;
+`
 export default MyApp
