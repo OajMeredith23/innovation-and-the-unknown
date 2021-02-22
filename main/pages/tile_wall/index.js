@@ -8,7 +8,7 @@ export default function TileWall({ data }) {
 }
 
 export async function getStaticProps(context) {
-    const res = await fetch(`http://localhost:3000/api`)
+    const res = await fetch(`https://innovation-and-the-unknown.vercel.app/api`)
     const data = await res.json()
 
     if (!data) {
