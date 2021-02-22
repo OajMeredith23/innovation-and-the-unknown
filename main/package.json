@@ -24,6 +24,7 @@
     "react-spinners-kit": "^1.9.1",
     "seedrandom": "^2.4.4",
     "styled-components": "^5.2.1",
+    "swr": "^0.4.2",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
