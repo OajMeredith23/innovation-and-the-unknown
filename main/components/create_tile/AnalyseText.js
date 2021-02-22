@@ -1,13 +1,13 @@
 import { useEffect, useState, useRef } from 'react';
 import * as tf from '@tensorflow/tfjs';
 import * as use from '@tensorflow-models/universal-sentence-encoder';
-import { TextArea } from '../../styles/ui_elements'
-
+import { TextArea, Loader } from '../../styles/ui_elements'
 
 export default function AnalyseText({ setData, setLoading }) {
 
     const [encoder, setEncoder] = useState(null);
     const [model, setModel] = useState(null);
+    const [analysing, setAnalysing] = useState(false);
     const textInput = useRef(null);
 
 
@@ -42,22 +42,22 @@ export default function AnalyseText({ setData, setLoading }) {
         e.preventDefault();
         const ENTER_KEY = 13
         if (e.keyCode === ENTER_KEY) { // On each press of the enter key analyse the text and return the emotional sentiment
-            setLoading(true);
+            setAnalysing(true);
             const analysis = await analyseText(model, encoder, textInput.current.value);
-            setLoading(false);
+            setAnalysing(false);
             setData(analysis); // set the data state of the create_tile page as the returned results
         }
     }
 
     return (
         <>
+            <Loader loading={analysing} translucent={true}>Analysing</Loader>
+
             <h1>Analyse Text</h1>
             <TextArea
                 ref={textInput}
                 onKeyUp={handleTextInput}
                 placeholder="Write your story..."
-            // cols="50"
-            // rows="40"
             ></TextArea>
         </>
     )

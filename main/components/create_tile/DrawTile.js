@@ -7,15 +7,13 @@ const brandColor = 'rgb(252, 186, 3)';
 
 import { PrimaryBtn } from '../../styles/ui_elements'
 const SVGContainer = styled.div`
-    // width: 100%;
     padding: 2em;
-    background: whitesmoke;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     svg{
-        border: 2px solid red;
+        border: 1px dashed lightgrey;
     }
     position: relative;
     .placeholder{
@@ -93,6 +91,8 @@ export default function DrawTile({ data, setSVG }) {
             .enter()
             .append('rect')
             .merge(bars)
+            .transition() // and apply changes to all of them
+            .duration(1000)
             .attr("fill", 'royalblue')
             .attr("x", (d, i) => x(i))
             .attr("y", d => y(d.value))

@@ -15,16 +15,18 @@ export default function CreateTile() {
     }, [svg])
 
     return (
-        <Container>
+        <div>
             <Loader loading={loading} />
 
-            <Group>
-                <AnalyseText setData={setData} setLoading={setLoading} />
-            </Group>
-            <Group>
-                <DrawTile data={data} setSVG={setSVG} />
-            </Group>
-        </Container>
+            <Container loaded={!loading}>
+                <Group>
+                    <AnalyseText setData={setData} setLoading={setLoading} />
+                </Group>
+                <Group>
+                    <DrawTile data={data} setSVG={setSVG} />
+                </Group>
+            </Container>
+        </div>
     )
 }
 
@@ -37,8 +39,15 @@ const Container = styled.div`
     > * {
         flex: 1 1 350px;
         height: 100%;
-        // &:not(:last-child){
-        //     margin-right: .5em;
-        // }
+        
+    }
+
+    transition: .5s ease-out;
+    ${(props) => props?.loaded ? `
+            opacity: 1;
+        `
+        : `
+            opacity: 0;
+        `
     }
 `
