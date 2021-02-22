@@ -4,20 +4,16 @@ import AnalyseText from '../../components/create_tile/AnalyseText'
 import DrawTile from '../../components/create_tile/DrawTile'
 import { Group, Loader } from '../../styles/ui_elements'
 import brand from '../../styles/brand'
+
 export default function CreateTile() {
 
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [svg, setSVG] = useState(null);
 
-    useEffect(() => {
-        console.log(svg)
-    }, [svg])
-
     return (
         <div>
             <Loader loading={loading} />
-
             <Container loaded={!loading}>
                 <Group>
                     <AnalyseText setData={setData} setLoading={setLoading} />
