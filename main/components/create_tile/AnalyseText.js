@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import * as tf from '@tensorflow/tfjs';
 import * as use from '@tensorflow-models/universal-sentence-encoder';
+import { TextArea } from '../ui_elements/ui_elements'
 
 export default function AnalyseText({ setData, setLoading }) {
 
@@ -41,22 +42,20 @@ export default function AnalyseText({ setData, setLoading }) {
             setLoading(true);
             const analysis = await analyseText(model, encoder, textInput.current.value);
             setLoading(false);
-            setData(analysis); // temp result because I will be using this data in different ways in the future
+            setData(analysis); // set the data state of the create_tile page as the returned results
         }
     }
-
-
-
 
     return (
         <>
             <h1>Analyse Text</h1>
-            <textarea
+            <TextArea
                 ref={textInput}
                 onKeyUp={handleTextInput}
-                cols="30"
-                rows="10"
-            ></textarea>
+                placeholder="Write your story..."
+            // cols="50"
+            // rows="40"
+            ></TextArea>
         </>
     )
 }

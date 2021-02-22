@@ -3,7 +3,6 @@ import { DominoSpinner } from "react-spinners-kit";
 const borderRadius = '.5em';
 const brandColor = 'rgb(252, 186, 3)';
 export const Group = styled.div`
-    background: whitesmoke;
     border: 1px solid grey; 
     border-radius: ${borderRadius};
     padding: .5em;
@@ -33,4 +32,20 @@ const LoadingScreen = styled.div`
 
 export const PrimaryBtn = styled.button`
     padding: 1em;
+`
+
+export const TextArea = styled.textarea`
+    width: 100%;
+    min-height: 50vh;
+    border: none; 
+    background: transparent;
+    font-size: 1.3em;
+    padding-top: 1em;
+    font-family: 'Baskerville';
+    background-image: linear-gradient(transparent, transparent 30px, #ccc 30px, #ccc 31px, transparent 31px);
+    background-size: 100% 31px;
+    resize: vertical;
+    line-height: 31px;
+    padding: 8px;
+}
 `
