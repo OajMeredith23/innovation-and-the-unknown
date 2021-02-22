@@ -1,7 +1,8 @@
 import { useEffect, useState, useRef } from 'react';
 import * as tf from '@tensorflow/tfjs';
 import * as use from '@tensorflow-models/universal-sentence-encoder';
-import { TextArea } from '../ui_elements/ui_elements'
+import { TextArea } from '../../styles/ui_elements/ui_elements'
+
 
 export default function AnalyseText({ setData, setLoading }) {
 
@@ -62,6 +63,7 @@ export default function AnalyseText({ setData, setLoading }) {
 
 
 const analyseText = async (model, encoder, text) => {
+    console.log("ANALYSING")
     const emotions = [
         "admiration",
         "amusement",
@@ -98,10 +100,11 @@ const analyseText = async (model, encoder, text) => {
 
     let predictions = emotions.map((emotion, i) => {
         return {
-            category: emotion,
-            value: prediction[i].toFixed(2)
+            category: emotion, // title of emotion. E.g: Joy
+            value: +prediction[i].toFixed(2) // Convert the result to number that is fixed to two decimal places
         }
     })
+        .filter(d => d.value > 0)
         .sort((a, b) => b.value - a.value);
 
     return predictions

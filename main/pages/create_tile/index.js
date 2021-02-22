@@ -2,16 +2,17 @@ import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import AnalyseText from '../../components/create_tile/AnalyseText'
 import DrawTile from '../../components/create_tile/DrawTile'
-import { Group, Loader } from '../../components/ui_elements/ui_elements'
+import { Group, Loader } from '../../styles/ui_elements/ui_elements'
 
 export default function CreateTile() {
 
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [svg, setSVG] = useState(null);
 
     useEffect(() => {
-        console.log("analysis results => ", data);
-    }, [data])
+        console.log(svg)
+    }, [svg])
 
     return (
         <Container>
@@ -20,7 +21,7 @@ export default function CreateTile() {
                 <AnalyseText setData={setData} setLoading={setLoading} />
             </Group>
             <Group>
-                <DrawTile data={data} />
+                <DrawTile data={data} setSVG={setSVG} />
             </Group>
         </Container>
     )
