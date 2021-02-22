@@ -23,7 +23,6 @@ export function Loader({ loading, translucent = false }) {
 }
 
 const LoadingScreen = styled.div`
-${({ translucent }) => console.log("translucent", translucent)}
     position: absolute;
     top: 0;
     left: 0;

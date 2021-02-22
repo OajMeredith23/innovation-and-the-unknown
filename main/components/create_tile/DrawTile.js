@@ -26,7 +26,6 @@ const SVGContainer = styled.div`
         left: 50%;
         transform: translate(-50%, -50%);
         padding: 1em; 
-
     }
 `
 
@@ -35,11 +34,13 @@ export default function DrawTile({ data, setSVG }) {
     const svgContainer = useRef(null);
     const [svgBody, setSvgBody] = useState(null);
 
+    // We create the SVG parent element seperately because we don't want to redraw it when the data is updated, it's child elements we will redraw.
     function setupSVG() {
-        console.log("Setting up");
-        console.log(svgContainer.current.querySelector('#svg'));
-
+        console.log("Setting up SVG");
         if (svgContainer.current.querySelector('#svg')) return; // if the svg already exists, don't make it again. This is for development, otherwise it creates a new svg element on each change, not a problem, just annoying. 
+
+        //Get the size of the svg container, this will depend on the screen size so we can't set it initially. 
+        // If it's bigger than 400, set it to 400. That's plenty big enough.
         const size = Math.min(svgContainer.current.clientWidth, 400);
 
         const svg = d3.select(svgContainer.current)
@@ -56,9 +57,11 @@ export default function DrawTile({ data, setSVG }) {
     function drawChart() {
 
         const margin = { top: 10, bottom: 10, left: 10, right: 10 };
+        // Get the width and height of our parent SVG element.
         const width = svgContainer.current.querySelector('#svg').clientWidth;
         const height = svgContainer.current.querySelector('#svg').clientHeight;
 
+        // What's the largest value in our data? this will be the highpoint in the X-axis
         const largestVal = Math.max(...data.map(d => d.value));
 
         const x = d3.scaleBand()
@@ -70,13 +73,9 @@ export default function DrawTile({ data, setSVG }) {
             .domain([0, largestVal])
             .range([height, 0])
 
+
         const bars = svgBody.selectAll('rect')
             .data(data)
-
-        console.log({
-            x: x(1),
-            y: y(0.8),
-        })
 
         svgBody.selectAll('rect')
             .enter()
@@ -104,12 +103,10 @@ export default function DrawTile({ data, setSVG }) {
             .remove()
 
         const svg = svgContainer.current.innerHTML
+        //Send the svg back to the parent component
         setSVG(svg);
-        console.log({ svg })
 
     }
-
-
 
     useEffect(() => {
         setupSVG();
@@ -120,34 +117,21 @@ export default function DrawTile({ data, setSVG }) {
         drawChart();
     }, [data])
 
-
-    const handleClick = (e) => {
-        console.log(e)
-
-    }
-
     return (
         <div>
             <SVGContainer
                 ref={svgContainer}
             >
-                {!!data ?
-                    <></>
-                    : <div className="placeholder">
+                {!data &&
+                    <div className="placeholder">
                         <p>
                             Tell your story...
                         </p>
                         <JellyfishSpinner size={90} color={brandColor} loading={true} />
                     </div>
                 }
-
             </SVGContainer>
-            <PrimaryBtn onClick={() => handleClick()}>Save</PrimaryBtn>
         </div>
     )
 
 }
-
-
-// width: ${props => props.size.width}px;
-// height: ${props => props.size.height}px;
