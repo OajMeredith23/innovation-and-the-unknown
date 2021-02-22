@@ -5,7 +5,7 @@ import { JellyfishSpinner } from "react-spinners-kit";
 const brandColor = 'rgb(252, 186, 3)';
 
 
-import { PrimaryBtn } from '../../styles/ui_elements/ui_elements'
+import { PrimaryBtn } from '../../styles/ui_elements'
 const SVGContainer = styled.div`
     // width: 100%;
     padding: 2em;

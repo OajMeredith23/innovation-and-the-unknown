@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import AnalyseText from '../../components/create_tile/AnalyseText'
 import DrawTile from '../../components/create_tile/DrawTile'
-import { Group, Loader } from '../../styles/ui_elements/ui_elements'
+import { Group, Loader } from '../../styles/ui_elements'
 
 export default function CreateTile() {
 

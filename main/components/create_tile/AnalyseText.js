@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import * as tf from '@tensorflow/tfjs';
 import * as use from '@tensorflow-models/universal-sentence-encoder';
-import { TextArea } from '../../styles/ui_elements/ui_elements'
+import { TextArea } from '../../styles/ui_elements'
 
 
 export default function AnalyseText({ setData, setLoading }) {
