@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import AnalyseText from '../../components/create_tile/AnalyseText'
 import DrawTile from '../../components/create_tile/DrawTile'
 import { Group, Loader } from '../../styles/ui_elements'
-
+import brand from '../../styles/brand'
 export default function CreateTile() {
 
     const [data, setData] = useState(null);
@@ -17,6 +17,7 @@ export default function CreateTile() {
     return (
         <Container>
             <Loader loading={loading} />
+
             <Group>
                 <AnalyseText setData={setData} setLoading={setLoading} />
             </Group>
@@ -36,8 +37,8 @@ const Container = styled.div`
     > * {
         flex: 1 1 350px;
         height: 100%;
-        &:not(:last-child){
-            margin-right: .5em;
-        }
+        // &:not(:last-child){
+        //     margin-right: .5em;
+        // }
     }
 `

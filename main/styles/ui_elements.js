@@ -1,7 +1,9 @@
 import styled, { keyframes } from 'styled-components';
 import { DominoSpinner } from "react-spinners-kit";
-const borderRadius = '.5em';
-const brandColor = 'rgb(252, 186, 3)';
+import brand from './brand';
+
+const { brandColor, background, borderRadius } = brand;
+
 export const Group = styled.div`
     border: 1px solid grey; 
     border-radius: ${borderRadius};
@@ -23,11 +25,13 @@ const LoadingScreen = styled.div`
     top: 0;
     left: 0;
     right: 0;
-    background: rgba(240,240,240, 0.8);
+    background: ${background};
     display: flex; 
     align-items: center;
     justify-content: center; 
     padding: 1em;
+    min-height: 40vh;
+    z-index: 100;
 `
 
 export const PrimaryBtn = styled.button`

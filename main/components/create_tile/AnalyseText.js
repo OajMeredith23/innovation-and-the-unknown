@@ -26,8 +26,10 @@ export default function AnalyseText({ setData, setLoading }) {
     }
 
     async function setupTensorflow() {
+        console.log("Loading...")
         await loadEncoder();
         await fetchModel();
+        console.log("Done Loading")
         return setLoading(false);
     }
 
