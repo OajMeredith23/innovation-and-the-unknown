@@ -1,33 +1,43 @@
 import styled, { keyframes } from 'styled-components';
 import { DominoSpinner } from "react-spinners-kit";
-const borderRadius = '.5em';
-const brandColor = 'rgb(252, 186, 3)';
+import brand from './brand';
+
+const { brandColor, background, borderRadius } = brand;
+
 export const Group = styled.div`
     border: 1px solid grey; 
     border-radius: ${borderRadius};
     padding: .5em;
+    position: relative;
+    min-height: 500px;
 `
 
 
-export function Loader({ loading }) {
+export function Loader({ loading, translucent = false }) {
 
     return loading ? (
-        <LoadingScreen>
+        <LoadingScreen translucent={translucent}>
             <DominoSpinner size={120} color={brandColor} loading={true}></DominoSpinner>
         </LoadingScreen>
     ) : <></>
 }
 
 const LoadingScreen = styled.div`
+${({ translucent }) => console.log("translucent", translucent)}
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    background: rgba(240,240,240, 0.8);
+    bottom: 0;
+    background: ${background};
+    opacity: ${({ translucent }) => translucent ? '0.8' : '1'};
     display: flex; 
     align-items: center;
     justify-content: center; 
     padding: 1em;
+    min-height: 40vh;
+    z-index: 100;
+    transition: .5s ease-in-out;
 `
 
 export const PrimaryBtn = styled.button`
