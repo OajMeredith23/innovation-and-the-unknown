@@ -1,10 +1,12 @@
 import useSWR from 'swr'
-
+import { useEffect } from 'react'
 const fetcher = (url) => fetch(url).then((res) => res.json())
 
 export default function TileWall() {
-    const { data, error } = useSWR('/api/user', fetcher)
-    console.log({ data })
+
+    const id = 'test__test'
+    const { data, error } = useSWR(`/api/tiles/${id}`, fetcher)
+
 
     return (
         <h1>Tile Wall</h1>
@@ -13,9 +15,10 @@ export default function TileWall() {
 
 // export async function getStaticProps(context) {
 //     // const res = await fetch(`http://localhost:3000/api/user`)
-//     const res = await fetch(`/api/user`)
-//     // const res = await fetch(`https://innovation-and-the-unknown.vercel.app/api`)
+//     // const res = await fetch(`/api/user`)
+//     // const res = await fetch(`https://innovation-and-the-unknown.vercel.app/api/user`)
 //     const data = await res.json()
+//     console.log("data", data)
 
 //     if (!data) {
 //         return {
@@ -24,6 +27,6 @@ export default function TileWall() {
 //     }
 
 //     return {
-//         props: { data: data }, // will be passed to the page component as props
+//         props: { users: data }, // will be passed to the page component as props
 //     }
 // }
