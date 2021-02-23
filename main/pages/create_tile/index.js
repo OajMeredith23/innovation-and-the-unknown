@@ -18,19 +18,20 @@ export default function CreateTile() {
     useEffect(() => {
         // console.log(svg)
     }, [svg])
+
     const pushTile = async () => {
 
         !!data && !!svg && !!text && console.log(
-            JSON.stringify({
+            {
                 data,
                 svg,
                 text
             })
-        )
 
-        const URL = isDevMode ? '/api/publish_tile' : 'https://innovation-and-the-unknown/api/publish_tile'
-        console.log(URL)
-        const res = !!data && !!svg && !!text && await fetch('/api/publish_tile', {
+
+        // const URL = isDevMode ? '/api/publish_tile' : 'https://innovation-and-the-unknown/api/publish_tile'
+
+        const res = !!data && !!svg && !!text && await fetch('/api/push_tile', {
             method: 'post',
             body: JSON.stringify({
                 data,
@@ -39,7 +40,7 @@ export default function CreateTile() {
             })
         })
 
-        console.log(await res.json())
+        console.log("res", await res.json())
 
     }
 
