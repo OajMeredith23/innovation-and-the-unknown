@@ -8,13 +8,13 @@ export default async (req, res) => {
         await db
             .collection("tiles_test")
             .insertOne(JSON.parse(req.body), (err, result) => {
-                if (err) { throw err; }
+                if (err) { res.json({ error: err }); }
                 res.json(result);
                 // result = res;
             })
 
     } catch (error) {
-        res.json({ error: true })
+        res.json({ error })
     }
 
 
