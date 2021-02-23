@@ -1,6 +1,5 @@
 
 export default function handler(req, res) {
-    console.log(req)
     const {
         query: { tile },
     } = req

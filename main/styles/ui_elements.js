@@ -1,6 +1,7 @@
 import styled, { keyframes } from 'styled-components';
 import { DominoSpinner } from "react-spinners-kit";
 import brand from './brand';
+import dompurify from 'dompurify';
 
 const { brandColor, background, borderRadius } = brand;
 
@@ -12,6 +13,18 @@ export const Group = styled.div`
     min-height: 500px;
 `
 
+export const P = ({ children }) => {
+
+    const sanitizer = dompurify.sanitize;
+
+    children = typeof children === 'object' ? children.join('') : children
+    return sanitizer ? (
+        <p
+            dangerouslySetInnerHTML={{ __html: sanitizer(children.replace(/\n/g, '<br/>')) }}
+        >
+        </p>
+    ) : <p>{children}</p>
+}
 
 export function Loader({ loading, translucent = false }) {
 
