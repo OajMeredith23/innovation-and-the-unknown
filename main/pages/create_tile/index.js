@@ -38,6 +38,8 @@ export default function CreateTile() {
             })
         })
 
+        console.log("push result ", await res.json())
+
     }
 
 
