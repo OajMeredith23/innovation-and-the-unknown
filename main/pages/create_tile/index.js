@@ -31,7 +31,7 @@ export default function CreateTile() {
 
         // const URL = isDevMode ? '/api/publish_tile' : 'https://innovation-and-the-unknown/api/publish_tile'
 
-        const res = !!data && !!svg && !!text && await fetch('/api/publish_tile', {
+        const res = !!data && !!svg && !!text && await fetch('/api/push_tile', {
             method: 'post',
             body: JSON.stringify({
                 data,
