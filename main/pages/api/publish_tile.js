@@ -1,7 +1,6 @@
 import { connectToDatabase } from "../../util/mongodb";
 
 export default async (req, res) => {
-    console.log(req.body)
     const { db } = await connectToDatabase();
     let result = { test: true }
 
