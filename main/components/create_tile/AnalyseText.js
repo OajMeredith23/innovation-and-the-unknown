@@ -3,7 +3,7 @@ import * as tf from '@tensorflow/tfjs';
 import * as use from '@tensorflow-models/universal-sentence-encoder';
 import { TextArea, Loader } from '../../styles/ui_elements'
 
-export default function AnalyseText({ setData, setLoading }) {
+export default function AnalyseText({ setData, setLoading, setText }) {
 
     const [encoder, setEncoder] = useState(null);
     const [model, setModel] = useState(null);
@@ -40,12 +40,15 @@ export default function AnalyseText({ setData, setLoading }) {
 
     const handleTextInput = async (e) => {
         e.preventDefault();
-        const ENTER_KEY = 13
+        const ENTER_KEY = 13;
+        const text_value = textInput.current.value;
         if (e.keyCode === ENTER_KEY) { // On each press of the enter key analyse the text and return the emotional sentiment
             setAnalysing(true);
-            const analysis = await analyseText(model, encoder, textInput.current.value);
-            setAnalysing(false);
+            const analysis = await analyseText(model, encoder, text_value);
             setData(analysis); // set the data state of the create_tile page as the returned results
+            setText(text_value); // send the text content back up to the parent component
+            setAnalysing(false);
+
         }
     }
 
@@ -106,7 +109,7 @@ const analyseText = async (model, encoder, text) => {
             value: +prediction[i].toFixed(2) // Convert the result to number that is fixed to two decimal places
         }
     })
-        .filter(d => d.value > 0)
+        .filter(d => d.value > 0) // Filter out any emotions with a value of zero
         .sort((a, b) => b.value - a.value);
 
     return predictions
