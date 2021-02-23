@@ -29,7 +29,7 @@ export default function CreateTile() {
 
         // const URL = 'http://localhost:3000/api/pushMovie'
         const URL = 'https://innovation-and-the-unknown/api/pushMovie'
-        const res = !!data && !!svg && !!text && await fetch('http://localhost:3000/api/pushMovie', {
+        const res = !!data && !!svg && !!text && await fetch(URL, {
             method: 'post',
             body: JSON.stringify({
                 data,
