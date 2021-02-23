@@ -10,7 +10,6 @@ export default async (req, res) => {
             .insertOne(JSON.parse(req.body), (err, result) => {
                 if (err) { res.json({ error: err }); }
                 res.json(result);
-                // result = res;
             })
 
     } catch (error) {
