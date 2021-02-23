@@ -21,7 +21,7 @@ import { connectToDatabase } from "../../util/mongodb";
 // };
 
 module.exports = (req, res) => {
-    console.log(req)
+    console.log(req.method)
     const { text, svg, data } = JSON.parse(req.body);
     console.log("TEXT", text)
     res.json({

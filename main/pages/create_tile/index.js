@@ -17,6 +17,14 @@ export default function CreateTile() {
 
     useEffect(() => {
         // console.log(svg)
+        async function test() {
+            const res = await fetch('/api/test', {
+                method: 'get'
+            })
+            console.log("RRRR", await res.json())
+        }
+
+        test();
     }, [svg])
 
     const pushTile = async () => {
