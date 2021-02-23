@@ -15,29 +15,19 @@ export default function CreateTile() {
     const [loading, setLoading] = useState(true);
     const [svg, setSVG] = useState(null);
 
-    useEffect(() => {
-        // console.log(svg)
-        async function test() {
-            const res = await fetch('/api/test', {
-                method: 'get'
-            })
-            console.log("RRRR", await res.json())
-        }
+    // useEffect(() => {
+    //     // console.log(svg)
+    //     async function test() {
+    //         const res = await fetch('/api/test', {
+    //             method: 'get'
+    //         })
+    //         console.log("RRRR", await res.json())
+    //     }
 
-        test();
-    }, [svg])
+    //     test();
+    // }, [svg])
 
     const pushTile = async () => {
-
-        !!data && !!svg && !!text && console.log(
-            {
-                data,
-                svg,
-                text
-            })
-
-
-        // const URL = isDevMode ? '/api/publish_tile' : 'https://innovation-and-the-unknown/api/publish_tile'
 
         const res = !!data && !!svg && !!text && await fetch('/api/push_tile', {
             method: 'post',
@@ -47,8 +37,6 @@ export default function CreateTile() {
                 text
             })
         })
-
-        console.log("res", await res.json())
 
     }
 

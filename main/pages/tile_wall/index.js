@@ -5,7 +5,7 @@ import { connectToDatabase } from "../../util/mongodb";
 import { P } from '../../styles/ui_elements'
 import dompurify from 'dompurify';
 
-
+const TILE_SIZE = '200px';
 
 const TileContainer = styled.div`
     display: flex;
@@ -13,8 +13,8 @@ const TileContainer = styled.div`
 `
 
 const Tile = styled.div`
-    width: 200px;
-    height: 200px;
+    width: ${TILE_SIZE};
+    height: ${TILE_SIZE};
     background: whitesmoke; 
     margin: .25em;
 `
@@ -22,17 +22,15 @@ const Tile = styled.div`
 export default function TileWall({ tiles }) {
 
     const sanitizer = dompurify.sanitize;
-    console.log(tiles)
 
     return (
         <TileContainer>
             {tiles.map(tile => {
                 return (
                     <Tile key={tile._id}>
-                        {/* {tile.text && <P>{tile.text}</P>} */}
                         <div style={{
-                            width: '200px',
-                            height: '200px'
+                            width: TILE_SIZE,
+                            height: TILE_SIZE
                         }}
                             dangerouslySetInnerHTML={{ __html: tile.svg }}></div>
                     </Tile>
