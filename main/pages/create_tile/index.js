@@ -5,7 +5,6 @@ import AnalyseText from '../../components/create_tile/AnalyseText'
 import DrawTile from '../../components/create_tile/DrawTile'
 import { Group, Loader, PrimaryBtn } from '../../styles/ui_elements'
 import brand from '../../styles/brand'
-console.log(process.env.NEXT_PUBLIC_ENV)
 
 const isDevMode = process.env.NEXT_PUBLIC_ENV === 'dev'
 
@@ -17,15 +16,17 @@ export default function CreateTile() {
     const [svg, setSVG] = useState(null);
 
     useEffect(() => {
-        console.log(svg)
+        // console.log(svg)
     }, [svg])
     const pushTile = async () => {
-        console.log({
-            data,
-            svg,
-            text
-        });
-        console.log(!!data && !!svg && !!text)
+
+        !!data && !!svg && !!text && console.log(
+            JSON.stringify({
+                data,
+                svg,
+                text
+            })
+        )
 
         const URL = isDevMode ? 'http://localhost:3000/api/publish_tile' : 'https://innovation-and-the-unknown/api/publish_tile'
         console.log(URL)
