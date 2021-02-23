@@ -28,9 +28,9 @@ export default function CreateTile() {
             })
         )
 
-        const URL = isDevMode ? 'http://localhost:3000/api/publish_tile' : 'https://innovation-and-the-unknown/api/publish_tile'
+        const URL = isDevMode ? '/api/publish_tile' : 'https://innovation-and-the-unknown/api/publish_tile'
         console.log(URL)
-        const res = !!data && !!svg && !!text && await fetch(URL, {
+        const res = !!data && !!svg && !!text && await fetch('/api/publish_tile', {
             method: 'post',
             body: JSON.stringify({
                 data,
