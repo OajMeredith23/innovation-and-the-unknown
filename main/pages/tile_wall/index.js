@@ -16,7 +16,7 @@ const Tile = styled.div`
     width: 200px;
     height: 200px;
     background: whitesmoke; 
-    margin: .24em;
+    margin: .25em;
 `
 
 export default function TileWall({ tiles }) {
