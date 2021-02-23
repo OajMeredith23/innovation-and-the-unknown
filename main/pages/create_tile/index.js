@@ -5,7 +5,6 @@ import AnalyseText from '../../components/create_tile/AnalyseText'
 import DrawTile from '../../components/create_tile/DrawTile'
 import { Group, Loader, PrimaryBtn } from '../../styles/ui_elements'
 import brand from '../../styles/brand'
-console.log(process.env.NEXT_PUBLIC_ENV)
 
 const isDevMode = process.env.NEXT_PUBLIC_ENV === 'dev'
 
