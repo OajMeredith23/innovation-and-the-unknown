@@ -27,6 +27,8 @@ export default function CreateTile() {
         });
         console.log(!!data && !!svg && !!text)
 
+        // const URL = 'http://localhost:3000/api/pushMovie'
+        const URL = 'https://innovation-and-the-unknown/api/pushMovie'
         const res = !!data && !!svg && !!text && await fetch('http://localhost:3000/api/pushMovie', {
             method: 'post',
             body: JSON.stringify({
