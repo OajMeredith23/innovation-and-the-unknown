@@ -15,17 +15,9 @@ export default function CreateTile() {
     const [loading, setLoading] = useState(true);
     const [svg, setSVG] = useState(null);
 
-    // useEffect(() => {
-    //     // console.log(svg)
-    //     async function test() {
-    //         const res = await fetch('/api/test', {
-    //             method: 'get'
-    //         })
-    //         console.log("RRRR", await res.json())
-    //     }
-
-    //     test();
-    // }, [svg])
+    useEffect(() => {
+        console.log(data)
+    }, [data])
 
     const pushTile = async () => {
 
