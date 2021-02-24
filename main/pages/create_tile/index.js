@@ -20,10 +20,6 @@ export default function CreateTile() {
     const [requestData, setRequestData] = useState(false);
 
     useEffect(() => {
-        console.log({ svg })
-        console.log(requestData === false)
-        console.log(!svg && requestData === false);
-
         if (svg === null || requestData === false) { return }
         else {
             pushTile();
@@ -64,10 +60,6 @@ export default function CreateTile() {
                 </Group >
             </Container>
             <ButtonContainer>
-                {/* <PrimaryBtn
-                    disabled={!(!!data && !!svg && !!text) || analysing}
-                    onClick={pushTile}
-                >Save</PrimaryBtn> */}
                 <PrimaryBtn
                     disabled={!data || analysing}
                     onClick={() => setRequestData(true)}

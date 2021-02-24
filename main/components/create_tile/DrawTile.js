@@ -118,9 +118,7 @@ export default function DrawTile({ data, setSVG, requestData }) {
 
     useEffect(() => {
         const svg = svgContainer.current.innerHTML
-        console.log({ requestData })
         setSVG(requestData ? svg : null);
-
     }, [requestData])
 
     return (
