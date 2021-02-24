@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import useSWR from 'swr'
+import { useRouter } from 'next/router'
 import styled from 'styled-components';
 import AnalyseText from '../../components/create_tile/AnalyseText'
 import DrawTile from '../../components/create_tile/DrawTile'
@@ -9,50 +9,63 @@ const isDevMode = process.env.NEXT_PUBLIC_ENV === 'dev'
 
 export default function CreateTile() {
 
+    const router = useRouter();
+
     const [data, setData] = useState(null);
     const [text, setText] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [analysing, setAnalysing] = useState(false);
     const [svg, setSVG] = useState(null);
 
 
-    useEffect(() => { console.log(!!data && !!svg && !!text) }, [data, svg, data])
+    useEffect(() => { console.log(data) }, [data])
 
     const pushTile = async () => {
-
+        console.log(Date.now());
         try {
             const res = !!data && !!svg && !!text && await fetch('/api/push_tile', {
                 method: 'post',
                 body: JSON.stringify({
                     data,
                     svg,
-                    text
+                    text,
+                    createdAt: Date.now()
                 })
             })
 
             console.log("push result ", await res.json())
+            router.push('/tile_wall')
 
         } catch (err) {
-            console.err(err);
+            console.error(err);
         }
 
     }
 
+    useEffect(() => {
+        console.log("LLL =>", !(!!data && !!svg && !!text))
+        console.log("analysing =>", analysing)
+    }, [loading, data])
 
     return (
-        <div>
+        <div style={{ position: 'relative' }}>
             <Loader loading={loading} />
             <Container loaded={!loading}>
-                <Group>
-                    <AnalyseText setData={setData} setLoading={setLoading} setText={setText} />
+                <Group className="group">
+                    <AnalyseText setData={setData} setLoading={setLoading} setText={setText} setAnalysing={setAnalysing} analysing={analysing} />
                 </Group>
-                <Group>
+                <Group className="group">
                     <DrawTile data={data} setSVG={setSVG} />
-                </Group>
+                </Group >
             </Container>
-            <PrimaryBtn
-                disabled={!(!!data && !!svg && !!text)}
-                onClick={pushTile}
-            >Save</PrimaryBtn>
+            <ButtonContainer>
+                <PrimaryBtn
+                    // disabled={!(!!data && !!svg && !!text && !loading)}
+                    disabled={!(!!data && !!svg && !!text) || analysing}
+                    onClick={pushTile}
+                >Save</PrimaryBtn>
+
+            </ButtonContainer>
         </div>
     )
 }
@@ -60,9 +73,16 @@ export default function CreateTile() {
 
 const Container = styled.div`
     display: flex;
+    align-items: center;
     flex-wrap: wrap;
     gap: 1em;
     position: relative;
+    margin: 3em 0;
+    .group{
+        display: flex;
+        flex-direction: column;
+        justify-content: center
+    }
     > * {
         flex: 1 1 350px;
         height: 100%;
@@ -76,4 +96,9 @@ const Container = styled.div`
             opacity: 0;
         `
     }
+`
+
+const ButtonContainer = styled.div`
+    display: flex;
+    justify-content: center;
 `

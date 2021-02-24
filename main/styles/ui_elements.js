@@ -13,13 +13,14 @@ export const Group = styled.div`
     min-height: 500px;
 `
 
-export const P = ({ children }) => {
+export const P = ({ children, className = '' }, props) => {
 
     const sanitizer = dompurify.sanitize;
 
     children = typeof children === 'object' ? children.join('') : children
     return sanitizer ? (
         <p
+            className={className}
             dangerouslySetInnerHTML={{ __html: sanitizer(children.replace(/\n/g, '<br/>')) }}
         >
         </p>
@@ -41,7 +42,7 @@ const LoadingScreen = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    background: ${background};
+    background: ${({ theme }) => theme.background};
     opacity: ${({ translucent }) => translucent ? '0.8' : '1'};
     display: flex; 
     align-items: center;
@@ -63,13 +64,21 @@ export const PrimaryBtn = (props) => {
             <Link href={href}>
                 <BtnStyles
                     {...props}
-                >{children}</BtnStyles>
+                >
+                    <h3>
+                        {children}
+                    </h3>
+                </BtnStyles>
             </Link>
         ) :
         (
             <BtnStyles
                 {...props}
-            >{children}</BtnStyles>
+            >
+                <h3>
+                    {children}
+                </h3>
+            </BtnStyles>
         )
 }
 export const TextArea = styled.textarea`
@@ -80,10 +89,23 @@ export const TextArea = styled.textarea`
     font-size: 1.3em;
     padding-top: 1em;
     font-family: 'Baskerville';
-    background-image: linear-gradient(transparent, transparent 30px, #ccc 30px, #ccc 31px, transparent 31px);
-    background-size: 100% 31px;
     resize: vertical;
     line-height: 31px;
-    padding: 8px;
+    padding: 2em;
+    border-right: 1px solid lightgrey;
+    border-bottom: 1px solid lightgrey;
+    &::-webkit-scrollbar {
+        width: .25em;
+    }
+     
+    &::-webkit-scrollbar-track {
+        background: ${({ theme }) => theme.background}; 
+        border-radius: 0px;
+    }
+     
+    &::-webkit-scrollbar-thumb {
+        background: rgba(35,35,35,1); 
+    }
+      
 }
 `

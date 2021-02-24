@@ -68,7 +68,7 @@ export async function getServerSideProps() {
     const tiles = await db
         .collection("tiles_test")
         .find({})
-        .sort({ metacritic: -1 })
+        .sort({ createdAt: -1 })
         .limit(20)
         .toArray();
 

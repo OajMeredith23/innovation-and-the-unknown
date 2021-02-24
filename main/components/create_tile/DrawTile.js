@@ -45,6 +45,7 @@ export default function DrawTile({ data, setSVG }) {
         //Get the size of the svg container, this will depend on the screen size so we can't set it initially. 
         // If it's bigger than 400, set it to 400. That's plenty big enough.
         const size = Math.min(svgContainer.current.clientWidth, MAX_SIZE);
+        console.log(size)
 
         const svg = d3.select(svgContainer.current)
             .append('svg')
@@ -131,7 +132,6 @@ export default function DrawTile({ data, setSVG }) {
 }
 
 const Container = styled.div`
-    border: 4px solid yellow; 
     height: 100%; 
     display: flex; 
     align-items: center; 

@@ -3,9 +3,11 @@ import { useRouter } from 'next/router'
 import styled from 'styled-components';
 import { P, Group } from '../../styles/ui_elements';
 import { X } from 'react-feather';
+import { format } from 'date-fns';
 const TILE_SIZE = '200px';
 
 export default function SingleTile({ tile }) {
+    console.log(tile)
 
     const router = useRouter();
 
@@ -26,7 +28,15 @@ export default function SingleTile({ tile }) {
                     className="group text-group"
 
                 >
-                    {tile?.text && <P>{tile.text}</P>}
+                    {tile?.createdAt && (
+                        <div className="text-item">
+                            <h4>Created</h4>
+                            <P className="italic">{format(tile.createdAt, 'PPPP')}</P>
+                        </div>
+                    )}
+                    <div className="text-item">
+                        {tile?.text && <P>{tile.text}</P>}
+                    </div>
                 </Group>
                 <Group
                     className="group svg-group"
@@ -68,6 +78,30 @@ const Container = styled.div`
     }
     .text-group{
         padding: 1em;
+        flex-direction: column;
+        align-items: flex-start;
+
+        .text-item{
+            margin-bottom: 2em;
+            padding-right: 1em;
+            max-height: 60vh; 
+            overflow-y: scroll;
+            &::-webkit-scrollbar {
+                width: .25em;
+            }
+             
+            &::-webkit-scrollbar-track {
+                background: ${({ theme }) => theme.background}; 
+                border-radius: 0px;
+            }
+             
+            &::-webkit-scrollbar-thumb {
+                background: rgba(35,35,35,1); 
+            }
+            p.italic {
+                font-style: italic;
+            }
+        }
         @media(min-width: 600px){
             padding: 5em;
         }
@@ -89,16 +123,16 @@ const SingleTileModal = styled.div`
 `
 
 const SVGContainer = styled.div`
-
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     .svg {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
+        width: 100%;
         padding: 2em;
-        display: flex;
-        align-items: center;
-        justify-content: center;
     }
 `
