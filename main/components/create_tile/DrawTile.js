@@ -12,17 +12,12 @@ const SVGContainer = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    border: 1px solid blue;
     height: 100%;
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    svg{
-        border: 1px dashed lightgrey;
-        // transform: scale(4);
-    }
     .placeholder{
         p{
             margin-bottom: 1em;
@@ -65,7 +60,7 @@ export default function DrawTile({ data, setSVG }) {
 
     async function drawChart() {
 
-        const margin = { top: 10, bottom: 10, left: 10, right: 10 };
+        const margin = { top: 0, bottom: 0, left: 0, right: 0 };
         // Get the width and height of our parent SVG element.
         const width = Math.min(MAX_SIZE, svgContainer.current.querySelector('#svg').clientWidth);
         const height = Math.min(MAX_SIZE, svgContainer.current.querySelector('#svg').clientHeight);
@@ -76,8 +71,7 @@ export default function DrawTile({ data, setSVG }) {
 
         const x = d3.scaleBand()
             .domain(d3.range(data.length))
-            .range([margin.left, width - margin.right])
-            .padding(0.1)
+            .range([0, width])
 
         const y = d3.scaleLinear()
             .domain([0, largestVal])
@@ -86,15 +80,6 @@ export default function DrawTile({ data, setSVG }) {
 
         const bars = svgBody.selectAll('rect')
             .data(data)
-
-        svgBody.selectAll('rect')
-            .enter()
-            .append('rect')
-            .attr("fill", 'red')
-            .attr("x", 0)
-            .attr("y", 0)
-            .attr("height", 50)
-            .attr("width", 20)
 
         bars
             .enter()
@@ -136,7 +121,7 @@ export default function DrawTile({ data, setSVG }) {
         <SVGContainer ref={svgContainer}>
             {!data &&
                 <div className="placeholder">
-                    <p>Tell your story...</p>
+                    {/* <p>Tell your story...</p> */}
                     <JellyfishSpinner size={90} loading={true} />
                 </div>
             }

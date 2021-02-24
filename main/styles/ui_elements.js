@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import styled, { keyframes } from 'styled-components';
 import { DominoSpinner } from "react-spinners-kit";
 import brand from './brand';
@@ -51,10 +52,26 @@ const LoadingScreen = styled.div`
     transition: .5s ease-in-out;
 `
 
-export const PrimaryBtn = styled.button`
-    padding: 1em;
+const BtnStyles = styled.button`
+    padding: 1em 2em;
+    border: none; 
 `
-
+export const PrimaryBtn = (props) => {
+    const { href = false, children } = props
+    return href ?
+        (
+            <Link href={href}>
+                <BtnStyles
+                    {...props}
+                >{children}</BtnStyles>
+            </Link>
+        ) :
+        (
+            <BtnStyles
+                {...props}
+            >{children}</BtnStyles>
+        )
+}
 export const TextArea = styled.textarea`
     width: 100%;
     min-height: 50vh;

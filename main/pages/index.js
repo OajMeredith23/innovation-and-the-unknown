@@ -10,11 +10,9 @@ export default function Home() {
 
   return (
     <div>
-      <Link href="/create_tile">
-        <PrimaryBtn>
-          Start
+      <PrimaryBtn disabled={false} href="/create_tile">
+        Start
       </PrimaryBtn>
-      </Link>
     </div>
   )
 }

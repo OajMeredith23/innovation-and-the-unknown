@@ -36,9 +36,7 @@ export default function TileWall({ tiles }) {
         setTileSelected(tiles.find(tile => tile._id === router.query.tile));
     }, [router.query.tile])
 
-    useEffect(() => {
-        console.log(tileSelected)
-    }, [tileSelected])
+
     return (
         <>
             <TileContainer>

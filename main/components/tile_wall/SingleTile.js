@@ -23,12 +23,13 @@ export default function SingleTile({ tile }) {
 
             <Container>
                 <Group
-                    className="group"
+                    className="group text-group"
+
                 >
                     {tile?.text && <P>{tile.text}</P>}
                 </Group>
                 <Group
-                    className="group"
+                    className="group svg-group"
                 >
                     <SVGContainer>
                         {tile?.svg &&
@@ -65,6 +66,16 @@ const Container = styled.div`
         align-items: center;
         justify-content: center;
     }
+    .text-group{
+        padding: 1em;
+        @media(min-width: 600px){
+            padding: 5em;
+        }
+        p {
+            line-height: 1.5em;
+        }
+    }
+    
 `
 const SingleTileModal = styled.div`
     position: fixed;

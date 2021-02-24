@@ -41,8 +41,9 @@ export default function AnalyseText({ setData, setLoading, setText }) {
     const handleTextInput = async (e) => {
         e.preventDefault();
         const ENTER_KEY = 13;
+        const FULL_STOP_KEY = 190;
         const text_value = textInput.current.value;
-        if (e.keyCode === ENTER_KEY) { // On each press of the enter key analyse the text and return the emotional sentiment
+        if (e.keyCode === ENTER_KEY || e.keyCode === FULL_STOP_KEY) { // On each press of the enter key analyse the text and return the emotional sentiment
             setAnalysing(true);
             const analysis = await analyseText(model, encoder, text_value);
             setData(analysis); // set the data state of the create_tile page as the returned results

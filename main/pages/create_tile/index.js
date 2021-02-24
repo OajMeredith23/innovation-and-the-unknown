@@ -15,20 +15,25 @@ export default function CreateTile() {
     const [svg, setSVG] = useState(null);
 
 
-    useEffect(() => { console.log(data) }, [data])
+    useEffect(() => { console.log(!!data && !!svg && !!text) }, [data, svg, data])
 
     const pushTile = async () => {
 
-        const res = !!data && !!svg && !!text && await fetch('/api/push_tile', {
-            method: 'post',
-            body: JSON.stringify({
-                data,
-                svg,
-                text
+        try {
+            const res = !!data && !!svg && !!text && await fetch('/api/push_tile', {
+                method: 'post',
+                body: JSON.stringify({
+                    data,
+                    svg,
+                    text
+                })
             })
-        })
 
-        console.log("push result ", await res.json())
+            console.log("push result ", await res.json())
+
+        } catch (err) {
+            console.err(err);
+        }
 
     }
 
@@ -44,7 +49,10 @@ export default function CreateTile() {
                     <DrawTile data={data} setSVG={setSVG} />
                 </Group>
             </Container>
-            <PrimaryBtn onClick={pushTile}>Save</PrimaryBtn>
+            <PrimaryBtn
+                disabled={!(!!data && !!svg && !!text)}
+                onClick={pushTile}
+            >Save</PrimaryBtn>
         </div>
     )
 }
