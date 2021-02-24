@@ -2,8 +2,6 @@ import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import * as d3 from 'd3';
 import { JellyfishSpinner } from "react-spinners-kit";
-const brandColor = 'rgb(252, 186, 3)';
-
 
 import { PrimaryBtn } from '../../styles/ui_elements'
 
@@ -14,17 +12,12 @@ const SVGContainer = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    border: 1px solid blue;
     height: 100%;
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    svg{
-        border: 1px dashed lightgrey;
-        // transform: scale(4);
-    }
     .placeholder{
         p{
             margin-bottom: 1em;
@@ -38,7 +31,7 @@ const SVGContainer = styled.div`
     }
 `
 
-export default function DrawTile({ data, setSVG }) {
+export default function DrawTile({ data, setSVG, requestData }) {
 
     const svgContainer = useRef(null);
     const [svgBody, setSvgBody] = useState(null);
@@ -52,6 +45,7 @@ export default function DrawTile({ data, setSVG }) {
         //Get the size of the svg container, this will depend on the screen size so we can't set it initially. 
         // If it's bigger than 400, set it to 400. That's plenty big enough.
         const size = Math.min(svgContainer.current.clientWidth, MAX_SIZE);
+        console.log(size)
 
         const svg = d3.select(svgContainer.current)
             .append('svg')
@@ -65,9 +59,9 @@ export default function DrawTile({ data, setSVG }) {
     }
 
 
-    async function drawChart() {
+    function drawChart() {
 
-        const margin = { top: 10, bottom: 10, left: 10, right: 10 };
+        const margin = { top: 0, bottom: 0, left: 0, right: 0 };
         // Get the width and height of our parent SVG element.
         const width = Math.min(MAX_SIZE, svgContainer.current.querySelector('#svg').clientWidth);
         const height = Math.min(MAX_SIZE, svgContainer.current.querySelector('#svg').clientHeight);
@@ -78,8 +72,7 @@ export default function DrawTile({ data, setSVG }) {
 
         const x = d3.scaleBand()
             .domain(d3.range(data.length))
-            .range([margin.left, width - margin.right])
-            .padding(0.1)
+            .range([0, width])
 
         const y = d3.scaleLinear()
             .domain([0, largestVal])
@@ -88,15 +81,6 @@ export default function DrawTile({ data, setSVG }) {
 
         const bars = svgBody.selectAll('rect')
             .data(data)
-
-        svgBody.selectAll('rect')
-            .enter()
-            .append('rect')
-            .attr("fill", 'red')
-            .attr("x", 0)
-            .attr("y", 0)
-            .attr("height", 50)
-            .attr("width", 20)
 
         bars
             .enter()
@@ -123,23 +107,26 @@ export default function DrawTile({ data, setSVG }) {
     }, [])
 
     async function drawAndReturnSVG() {
-        await drawChart();
-        const svg = svgContainer.current.innerHTML
         //Send the svg back to the parent component
-        setSVG(svg);
     }
 
     useEffect(() => {
         if (!data) return;
-        drawAndReturnSVG();
+        drawChart();
+
     }, [data])
+
+    useEffect(() => {
+        const svg = svgContainer.current.innerHTML
+        setSVG(requestData ? svg : null);
+    }, [requestData])
 
     return (
         <SVGContainer ref={svgContainer}>
             {!data &&
                 <div className="placeholder">
-                    <p>Tell your story...</p>
-                    <JellyfishSpinner size={90} color={brandColor} loading={true} />
+                    {/* <p>Tell your story...</p> */}
+                    <JellyfishSpinner size={90} loading={true} />
                 </div>
             }
         </SVGContainer>
@@ -148,7 +135,6 @@ export default function DrawTile({ data, setSVG }) {
 }
 
 const Container = styled.div`
-    border: 4px solid yellow; 
     height: 100%; 
     display: flex; 
     align-items: center; 
