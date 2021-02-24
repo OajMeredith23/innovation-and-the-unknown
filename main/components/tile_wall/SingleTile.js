@@ -13,7 +13,7 @@ export default function SingleTile({ tile }) {
 
     function close() {
         console.log('close')
-        router.push(`/tile_wall`, undefined, { shallow: true })
+        router.push(`/tile_wall`)
     }
 
     return (
@@ -133,6 +133,7 @@ const SVGContainer = styled.div`
     bottom: 0;
     .svg {
         width: 100%;
+        max-width: 700px;
         padding: 2em;
     }
 `

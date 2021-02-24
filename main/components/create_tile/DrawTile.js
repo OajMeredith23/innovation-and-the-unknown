@@ -31,7 +31,7 @@ const SVGContainer = styled.div`
     }
 `
 
-export default function DrawTile({ data, setSVG }) {
+export default function DrawTile({ data, setSVG, requestData }) {
 
     const svgContainer = useRef(null);
     const [svgBody, setSvgBody] = useState(null);
@@ -59,7 +59,7 @@ export default function DrawTile({ data, setSVG }) {
     }
 
 
-    async function drawChart() {
+    function drawChart() {
 
         const margin = { top: 0, bottom: 0, left: 0, right: 0 };
         // Get the width and height of our parent SVG element.
@@ -107,16 +107,21 @@ export default function DrawTile({ data, setSVG }) {
     }, [])
 
     async function drawAndReturnSVG() {
-        await drawChart();
-        const svg = svgContainer.current.innerHTML
         //Send the svg back to the parent component
-        setSVG(svg);
     }
 
     useEffect(() => {
         if (!data) return;
-        drawAndReturnSVG();
+        drawChart();
+
     }, [data])
+
+    useEffect(() => {
+        const svg = svgContainer.current.innerHTML
+        console.log({ requestData })
+        setSVG(requestData ? svg : null);
+
+    }, [requestData])
 
     return (
         <SVGContainer ref={svgContainer}>

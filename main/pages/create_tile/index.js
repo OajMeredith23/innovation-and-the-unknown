@@ -17,11 +17,21 @@ export default function CreateTile() {
     const [analysing, setAnalysing] = useState(false);
     const [svg, setSVG] = useState(null);
 
+    const [requestData, setRequestData] = useState(false);
 
-    useEffect(() => { console.log(data) }, [data])
+    useEffect(() => {
+        console.log({ svg })
+        console.log(requestData === false)
+        console.log(!svg && requestData === false);
+
+        if (svg === null || requestData === false) { return }
+        else {
+            pushTile();
+        }
+    }, [svg])
 
     const pushTile = async () => {
-        console.log(Date.now());
+
         try {
             const res = !!data && !!svg && !!text && await fetch('/api/push_tile', {
                 method: 'post',
@@ -39,13 +49,8 @@ export default function CreateTile() {
         } catch (err) {
             console.error(err);
         }
-
     }
 
-    useEffect(() => {
-        console.log("LLL =>", !(!!data && !!svg && !!text))
-        console.log("analysing =>", analysing)
-    }, [loading, data])
 
     return (
         <div style={{ position: 'relative' }}>
@@ -55,14 +60,17 @@ export default function CreateTile() {
                     <AnalyseText setData={setData} setLoading={setLoading} setText={setText} setAnalysing={setAnalysing} analysing={analysing} />
                 </Group>
                 <Group className="group">
-                    <DrawTile data={data} setSVG={setSVG} />
+                    <DrawTile data={data} setSVG={setSVG} requestData={requestData} />
                 </Group >
             </Container>
             <ButtonContainer>
-                <PrimaryBtn
-                    // disabled={!(!!data && !!svg && !!text && !loading)}
+                {/* <PrimaryBtn
                     disabled={!(!!data && !!svg && !!text) || analysing}
                     onClick={pushTile}
+                >Save</PrimaryBtn> */}
+                <PrimaryBtn
+                    disabled={!data || analysing}
+                    onClick={() => setRequestData(true)}
                 >Save</PrimaryBtn>
 
             </ButtonContainer>
