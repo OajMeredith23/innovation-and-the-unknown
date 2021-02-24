@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import AnalyseText from '../../components/create_tile/AnalyseText'
 import DrawTile from '../../components/create_tile/DrawTile'
 import { Group, Loader, PrimaryBtn } from '../../styles/ui_elements'
-import brand from '../../styles/brand'
 
 const isDevMode = process.env.NEXT_PUBLIC_ENV === 'dev'
 
@@ -15,9 +14,8 @@ export default function CreateTile() {
     const [loading, setLoading] = useState(true);
     const [svg, setSVG] = useState(null);
 
-    useEffect(() => {
-        console.log(data)
-    }, [data])
+
+    useEffect(() => { console.log(data) }, [data])
 
     const pushTile = async () => {
 
@@ -60,7 +58,6 @@ const Container = styled.div`
     > * {
         flex: 1 1 350px;
         height: 100%;
-        
     }
 
     transition: .5s ease-out;

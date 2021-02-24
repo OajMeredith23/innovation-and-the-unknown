@@ -6,7 +6,6 @@ import dompurify from 'dompurify';
 const { brandColor, background, borderRadius } = brand;
 
 export const Group = styled.div`
-    border: 1px solid grey; 
     border-radius: ${borderRadius};
     padding: .5em;
     position: relative;

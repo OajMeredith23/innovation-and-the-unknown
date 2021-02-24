@@ -2,8 +2,6 @@ import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import * as d3 from 'd3';
 import { JellyfishSpinner } from "react-spinners-kit";
-const brandColor = 'rgb(252, 186, 3)';
-
 
 import { PrimaryBtn } from '../../styles/ui_elements'
 
@@ -139,7 +137,7 @@ export default function DrawTile({ data, setSVG }) {
             {!data &&
                 <div className="placeholder">
                     <p>Tell your story...</p>
-                    <JellyfishSpinner size={90} color={brandColor} loading={true} />
+                    <JellyfishSpinner size={90} loading={true} />
                 </div>
             }
         </SVGContainer>
