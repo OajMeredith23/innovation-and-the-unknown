@@ -61,26 +61,40 @@ export default function DrawTile({ data, setSVG, requestData }) {
 
     function drawChart() {
 
-        const margin = { top: 0, bottom: 0, left: 0, right: 0 };
+        const matrixSize = 6;
+        // const matrixSize = data[0].value * 32;
+
+        const sections = Array.from({ length: matrixSize * matrixSize }).map(d => 0)
+
+
         // Get the width and height of our parent SVG element.
         const width = Math.min(MAX_SIZE, svgContainer.current.querySelector('#svg').clientWidth);
         const height = Math.min(MAX_SIZE, svgContainer.current.querySelector('#svg').clientHeight);
-        console.log("height ", height, "width", width)
-
         // What's the largest value in our data? this will be the highpoint in the X-axis
-        const largestVal = Math.max(...data.map(d => d.value));
+        // const largestVal = Math.max(...data.map(d => d.value));
 
-        const x = d3.scaleBand()
-            .domain(d3.range(data.length))
+        let yRange = Array.from({ length: matrixSize }).map((d, i) => i * (height / matrixSize))
+
+        const sectionPosX = d3.scaleQuantile().domain(d3.range(matrixSize)).range(yRange);
+        const sectionPosY = d3.scaleQuantile().domain(d3.range(sections.length)).range(yRange);
+
+        console.log("sectionPosY", sectionPosY(3), "sectionPosX", sectionPosX(4 % matrixSize))
+
+        const sectionSize = d3.scaleBand()
+            .domain(d3.range(matrixSize))
             .range([0, width])
 
-        const y = d3.scaleLinear()
-            .domain([0, largestVal])
-            .range([height, 0])
+        const sectionsY = d3.scaleLinear()
+            .domain([0, sections.length])
+            .range([0, height])
 
+        const color = d3.scaleSequential()
+            .domain([0, sections.length])
+            .interpolator(d3.interpolateInferno);
 
+        console.log(color(8))
         const bars = svgBody.selectAll('rect')
-            .data(data)
+            .data(sections)
 
         bars
             .enter()
@@ -88,11 +102,13 @@ export default function DrawTile({ data, setSVG, requestData }) {
             .merge(bars)
             .transition() // and apply changes to all of them
             .duration(1000)
-            .attr("fill", 'royalblue')
-            .attr("x", (d, i) => x(i))
-            .attr("y", d => y(d.value))
-            .attr("height", d => y(0) - y(d.value))
-            .attr("width", x.bandwidth());
+            .attr("fill", (d, i) => color(i))
+            .attr("stroke", 'white')
+            .attr('x', (d, i) => sectionPosX(i % matrixSize))
+            .attr('y', (d, i) => sectionPosY(i))
+            .attr('width', sectionSize(1))
+            .attr('height', sectionSize(1))
+            .text((d, i) => i)
 
         bars
             .exit()
