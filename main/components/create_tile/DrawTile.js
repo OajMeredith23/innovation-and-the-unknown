@@ -31,6 +31,7 @@ const SVGContainer = styled.div`
     }
 `
 
+
 export default function DrawTile({ data, setSVG, requestData }) {
 
     const svgContainer = useRef(null);
@@ -61,7 +62,8 @@ export default function DrawTile({ data, setSVG, requestData }) {
 
     function drawChart() {
 
-        const matrixSize = 6;
+        const matrixSize = data.length;
+        console.log({ matrixSize })
         // const matrixSize = data[0].value * 32;
 
         const sections = Array.from({ length: matrixSize * matrixSize }).map(d => 0)
@@ -92,9 +94,14 @@ export default function DrawTile({ data, setSVG, requestData }) {
             .domain([0, sections.length])
             .interpolator(d3.interpolateInferno);
 
-        console.log(color(8))
-        const bars = svgBody.selectAll('rect')
+        const t = svgBody.transition()
+            .duration(750);
+
+        const bars = svgBody
+            .selectAll('rect')
             .data(sections)
+
+
 
         bars
             .enter()
@@ -113,6 +120,15 @@ export default function DrawTile({ data, setSVG, requestData }) {
         bars
             .exit()
             .remove()
+        // bars
+        //     .enter()
+        //     .append('rect')
+        //     .attr('width', 50)
+        //     .attr('height', 50)
+        //     .attr('x', 0)
+        //     .attr('y', 0)
+
+
 
         return true
 
