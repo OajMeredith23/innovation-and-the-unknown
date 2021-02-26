@@ -31,8 +31,16 @@ const SVGContainer = styled.div`
     }
 `
 
+const emotion_shapes = {
+    neutral: 'M0,0 C-10, -10 -10,-40,0,-50 C10, -40 10, -10, 0, 0',
+    admiration: 'M69.2,46c46,0-102.3,82.9-62.3-22.5c0,0,4.3-24.2,33.3-23.5',
+    anger: "M158.4,133 1.1,116.8 117.5,0.4 "
+}
+
+
 
 export default function DrawTile({ data, setSVG, requestData }) {
+
 
     const svgContainer = useRef(null);
     const [svgBody, setSvgBody] = useState(null);
@@ -61,8 +69,13 @@ export default function DrawTile({ data, setSVG, requestData }) {
 
 
     function drawChart() {
-
+        data = [
+            { category: 'neutral', value: 0.4 },
+            { category: 'admiration', value: 0.4 },
+            { category: 'anger', value: 0.4 }
+        ]
         const matrixSize = data.length;
+        console.log(data)
         console.log({ matrixSize })
         // const matrixSize = data[0].value * 32;
 
@@ -77,60 +90,41 @@ export default function DrawTile({ data, setSVG, requestData }) {
 
         let yRange = Array.from({ length: matrixSize }).map((d, i) => i * (height / matrixSize))
 
-        const sectionPosX = d3.scaleQuantile().domain(d3.range(matrixSize)).range(yRange);
-        const sectionPosY = d3.scaleQuantile().domain(d3.range(sections.length)).range(yRange);
+        const sectionPosX = d3.scaleQuantile()
+            .domain(d3.range(matrixSize))
+            .range(yRange);
 
-        console.log("sectionPosY", sectionPosY(3), "sectionPosX", sectionPosX(4 % matrixSize))
+        const sectionPosY = d3.scaleQuantile()
+            .domain(d3.range(sections.length))
+            .range(yRange);
 
         const sectionSize = d3.scaleBand()
             .domain(d3.range(matrixSize))
             .range([0, width])
 
-        const sectionsY = d3.scaleLinear()
-            .domain([0, sections.length])
-            .range([0, height])
 
         const color = d3.scaleSequential()
-            .domain([0, sections.length])
+            .domain([0, data.length])
             .interpolator(d3.interpolateInferno);
 
-        const t = svgBody.transition()
-            .duration(750);
+        d3.selectAll('g').remove()
 
-        const bars = svgBody
-            .selectAll('rect')
-            .data(sections)
+        const shapes = svgBody
+            .append('g')
+        // .attr('transform', (d, i) => `translate(${width / 2}, ${height / 2}) `)
 
-
-
-        bars
+        shapes
+            .selectAll('path')
+            .data(data)
             .enter()
-            .append('rect')
-            .merge(bars)
+            .append('path')
+            .merge(shapes)
             .transition() // and apply changes to all of them
             .duration(1000)
-            .attr("fill", (d, i) => color(i))
-            .attr("stroke", 'white')
-            .attr('x', (d, i) => sectionPosX(i % matrixSize))
-            .attr('y', (d, i) => sectionPosY(i))
-            .attr('width', sectionSize(1))
-            .attr('height', sectionSize(1))
-            .text((d, i) => i)
-
-        bars
-            .exit()
-            .remove()
-        // bars
-        //     .enter()
-        //     .append('rect')
-        //     .attr('width', 50)
-        //     .attr('height', 50)
-        //     .attr('x', 0)
-        //     .attr('y', 0)
+            .attr('d', d => emotion_shapes[d.category])
+            .attr('fill', (d, i) => color(i))
 
 
-
-        return true
 
     }
 
