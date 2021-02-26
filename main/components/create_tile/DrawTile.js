@@ -32,9 +32,16 @@ const SVGContainer = styled.div`
 `
 
 const emotion_shapes = {
-    neutral: 'M0,0 C-10, -10 -10,-40,0,-50 C10, -40 10, -10, 0, 0',
-    admiration: 'M69.2,46c46,0-102.3,82.9-62.3-22.5c0,0,4.3-24.2,33.3-23.5',
-    anger: "M158.4,133 1.1,116.8 117.5,0.4 "
+    neutral: "M0,0 L200, 200",
+    admiration: "M0,200 L100,0 L200,200",
+    anger: "M0,0 Q200,0 200,200",
+    joy: "M0,20 Q180,20 180,200M200,180 Q20,180 20,0",
+    // joy: "M0,100 S0,-0 40,0 S200,400 200,100",
+    approval: "M0,0 L200,0 L0,100 L200,100 L0,200 L200,200",
+    confusion: "M0,0 L200,200 M200,0 L0, 200",
+    // surprise: "M2,2 Q200,2 200,200 M2,20 Q180,20 180,200 M2,40 Q160,40 160,200",
+    surprise: "M2,2 Q200,2 200,200 M2,20 Q180,20 180,200 M2,40 Q160,40 160,200",
+    excitement: "M0,0 Q200,0 200,200 M0,20 Q180,20 180,200 M0,40 Q160,40 160,200 M200,200 Q0,200 0,0 M200,180 Q20,180 20,0 M200,160 Q40,160 40,0",
 }
 
 
@@ -48,13 +55,12 @@ export default function DrawTile({ data, setSVG, requestData }) {
     const MAX_SIZE = 200
     // We create the SVG parent element seperately because we don't want to redraw it when the data is updated, it's child elements we will redraw.
     function setupSVG() {
-        console.log("Setting up SVG");
         if (svgContainer.current.querySelector('#svg')) return; // if the svg already exists, don't make it again. This is for development, otherwise it creates a new svg element on each change, not a problem, just annoying. 
 
         //Get the size of the svg container, this will depend on the screen size so we can't set it initially. 
         // If it's bigger than 400, set it to 400. That's plenty big enough.
         const size = Math.min(svgContainer.current.clientWidth, MAX_SIZE);
-        console.log(size)
+        console.log("size", size)
 
         const svg = d3.select(svgContainer.current)
             .append('svg')
@@ -70,13 +76,16 @@ export default function DrawTile({ data, setSVG, requestData }) {
 
     function drawChart() {
         data = [
-            { category: 'neutral', value: 0.4 },
-            { category: 'admiration', value: 0.4 },
-            { category: 'anger', value: 0.4 }
+            { category: 'neutral', value: 0.04 },
+            { category: 'admiration', value: 0.2 },
+            { category: 'anger', value: 0.02 },
+            { category: 'joy', value: 0.3 },
+            { category: 'approval', value: 0.2 },
+            { category: 'confusion', value: 0.1 },
+            { category: 'surprise', value: 0.1 },
+            { category: 'excitement', value: 0.1 },
         ]
         const matrixSize = data.length;
-        console.log(data)
-        console.log({ matrixSize })
         // const matrixSize = data[0].value * 32;
 
         const sections = Array.from({ length: matrixSize * matrixSize }).map(d => 0)
@@ -98,31 +107,54 @@ export default function DrawTile({ data, setSVG, requestData }) {
             .domain(d3.range(sections.length))
             .range(yRange);
 
+        // console.log("sectionPosY", sectionPosY(9))
         const sectionSize = d3.scaleBand()
             .domain(d3.range(matrixSize))
             .range([0, width])
 
 
         const color = d3.scaleSequential()
-            .domain([0, data.length])
+            .domain([0, sections.length])
             .interpolator(d3.interpolateInferno);
+
+
+        const scaleEmotion = d3.scaleQuantile()
+            .domain([0, 1])
+            .range([0.5, 1, 1.5, 2])
+
+        console.log("scaleEmotion", scaleEmotion(0.2)) // outputs 0.5
 
         d3.selectAll('g').remove()
 
         const shapes = svgBody
+            .selectAll('g')
+            .data(sections)
+            .enter()
             .append('g')
-        // .attr('transform', (d, i) => `translate(${width / 2}, ${height / 2}) `)
+            // .append('g')
+            .attr('transform', (d, i) => `translate(${sectionPosX(i % matrixSize)}, ${sectionPosY(i)}) scale(${1 / matrixSize})`)
 
         shapes
-            .selectAll('path')
-            .data(data)
-            .enter()
             .append('path')
             .merge(shapes)
             .transition() // and apply changes to all of them
-            .duration(1000)
-            .attr('d', d => emotion_shapes[d.category])
-            .attr('fill', (d, i) => color(i))
+            .duration(500)
+            .attr('d', (d, i) => {
+                // console.log(i, "=>", data[i % matrixSize])
+                return emotion_shapes[data[Math.floor(Math.random() * data.length)].category]
+            })
+            // .attr('transform', (d, i) => {
+
+            //     console.log("SC =>", scaleEmotion(data[i % matrixSize].value))
+
+            //     return `scale(${scaleEmotion(1 + data[i % matrixSize].value)})`
+
+            // })
+            .attr("fill", "none")
+            .attr('stroke', (d, i) => color(i))
+            .attr('stroke-linecap', 'round')
+            // .attr('stroke-width', (d, i) => Math.max(10, Math.floor(Math.random() * 20)))
+            .attr('stroke-width', (d, i) => 3)
 
 
 
@@ -165,5 +197,5 @@ const Container = styled.div`
     display: flex; 
     align-items: center; 
     justify-content: center;
-    
+   
 `
