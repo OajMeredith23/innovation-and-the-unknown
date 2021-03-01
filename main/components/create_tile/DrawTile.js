@@ -76,16 +76,16 @@ export default function DrawTile({ data, setSVG, requestData }) {
 
     function drawChart() {
 
-        data = [ // Use this as mock data, if you like (you'll still need to enter some text to run this function)
-            { category: 'neutral', value: 0.04 },
-            { category: 'admiration', value: 0.2 },
-            // { category: 'anger', value: 0.02 },
-            // { category: 'joy', value: 0.3 },
-            // { category: 'approval', value: 0.2 },
-            // { category: 'confusion', value: 0.1 },
-            // { category: 'surprise', value: 0.1 },
-            { category: 'excitement', value: 0.1 },
-        ]
+        // data = [ // Use this as mock data, if you like (you'll still need to enter some text to run this function)
+        //     { category: 'neutral', value: 0.04 },
+        //     { category: 'admiration', value: 0.2 },
+        //     // { category: 'anger', value: 0.02 },
+        //     // { category: 'joy', value: 0.3 },
+        //     // { category: 'approval', value: 0.2 },
+        //     // { category: 'confusion', value: 0.1 },
+        //     // { category: 'surprise', value: 0.1 },
+        //     { category: 'excitement', value: 0.1 },
+        // ]
 
         // The data representation is a matrix where the dimensions on each axis are equal to the number of data points 
         // e.g, if the data contains 5 emotions it would be a 5x5 matrix .
