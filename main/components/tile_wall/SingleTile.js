@@ -1,23 +1,44 @@
 import Head from 'next/head';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router'
 import styled from 'styled-components';
 import { P, Group } from '../../styles/ui_elements';
-import { X } from 'react-feather';
+import { X, Share2 } from 'react-feather';
 import { format } from 'date-fns';
 const TILE_SIZE = '200px';
 
 export default function SingleTile({ tile }) {
-    console.log(tile)
 
+    const [hasNavigator, setHasNavigator] = useState(false);
     const router = useRouter();
     console.log(router.pathname)
 
+    useEffect(() => {
+        if (navigator.share) {
+            setHasNavigator(true);
+        }
+    }, [])
     function close() {
         console.log('close')
         router.push(`/tile_wall`)
     }
 
+
+    async function share() {
+
+        const shareData = {
+            title: 'Made with Folktiles',
+            text: tile.text,
+            url: 'https://folktiles.vercel.app' + router.pathname,
+        }
+
+        try {
+            await navigator.share(shareData)
+            console.log('MDN shared successfully')
+        } catch (err) {
+            console.log('err', err)
+        }
+    }
     return (
         <SingleTileModal>
             <Head>
@@ -50,7 +71,12 @@ export default function SingleTile({ tile }) {
                     <div className="text-item">
                         {tile?.text && <P>{tile.text}</P>}
                     </div>
+
+                    {hasNavigator &&
+                        <Share2 onClick={share} />
+                    }
                 </Group>
+
                 <Group
                     className="group svg-group"
                 >
