@@ -91,7 +91,7 @@ const LoadingScreen = styled.div`
             path {
                 transition: .5s ease-out;
                 fill: none;
-                stroke: ${({ theme }) => theme.textColor};
+                stroke: ${({ theme }) => theme.brandColor};
                 stroke-width: 8px;
             }
         }
