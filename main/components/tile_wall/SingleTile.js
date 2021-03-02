@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router'
 import styled from 'styled-components';
@@ -18,7 +19,11 @@ export default function SingleTile({ tile }) {
 
     return (
         <SingleTileModal>
-
+            <Head>
+                <title>Made with Folktiles</title>
+                <meta property="og:title" content="Made with Folktiles" />
+                <meta property="og:description" content={tile?.text} />
+            </Head>
             <CloseBtn onClick={() => close()}>
                 <X />
             </CloseBtn>
