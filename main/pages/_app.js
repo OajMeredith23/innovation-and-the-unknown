@@ -15,9 +15,9 @@ const Container = styled.main`
 export const theme = {
   // background: 'rgba(245,245,245)',
   // brandColor: 'rgb(252, 186, 3)',
-  background: 'tomato',
+  background: 'whitesmoke',
   brandColor: '#333',
-  textColor: 'white',
+  textColor: '#333',
   borderRadius: '.23em',
   shadow: `0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)`,
 }
@@ -35,7 +35,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     padding: 0;
     margin: 0;
-    font-family: 'EB Garamond', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     background: ${({ theme }) => theme.background};
 
   }
@@ -46,7 +46,7 @@ const GlobalStyle = createGlobalStyle`
     text-decoration: none;
   }
   button {
-    font-family: 'EB Garamond', sans-serif;
+    font-family: 'Montserrat', sans-serif;
   }
   
   h1,h2,h3,h4,h5 {
@@ -55,7 +55,7 @@ const GlobalStyle = createGlobalStyle`
   }
   
   p, textarea {
-    font-family: 'EB Garamond', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     color: ${({ theme }) => theme.textColor};
     font-weight: 300;
     line-height: 1.5em;
