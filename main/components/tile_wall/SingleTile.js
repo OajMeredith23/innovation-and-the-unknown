@@ -30,7 +30,7 @@ export default function SingleTile({ tile }) {
                 >
                     {tile?.createdAt && (
                         <div className="text-item">
-                            <h4>Created</h4>
+                            <h2>Created</h2>
                             <P className="italic">{format(tile.createdAt, 'PPPP')}</P>
                         </div>
                     )}

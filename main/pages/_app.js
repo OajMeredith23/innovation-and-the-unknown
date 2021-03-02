@@ -13,7 +13,8 @@ const Container = styled.main`
 
 const theme = {
   background: 'rgba(245,245,245)',
-  brandColor: 'rgb(252, 186, 3)',
+  // brandColor: 'rgb(252, 186, 3)',
+  brandColor: '#333',
   borderRadius: '.23em',
   shadow: `0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)`
 }
@@ -37,11 +38,15 @@ function MyApp({ Component, pageProps }) {
           {/* <link rel="preconnect" href="https://fonts.gstatic.com"> */}
           <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Montserrat:wght@300;500&display=swap" rel="stylesheet"></link>
         </Head>
+
         <NavBar>
           <Link href="/">
-            Home
-        </Link>
+            <h3>
+              Folktiles
+            </h3>
+          </Link>
         </NavBar>
+
 
         <Component {...pageProps} />
       </Container>
@@ -53,5 +58,7 @@ const NavBar = styled.nav`
   padding: .5em; 
   border-bottom: 1px solid #333;
   margin-bottom: .5em;
+  display: flex;
+  justify-content: center;
 `
 export default MyApp

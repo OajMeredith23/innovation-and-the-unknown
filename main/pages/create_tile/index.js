@@ -20,6 +20,15 @@ export default function CreateTile() {
     const [requestData, setRequestData] = useState(false);
 
     useEffect(() => {
+        console.log("gotdata")
+    }, [data])
+
+    useEffect(() => {
+        console.log({ requestData })
+    }, [requestData])
+
+    useEffect(() => {
+        // console.log({ svg })
         if (svg === null || requestData === false) { return }
         else {
             pushTile();
@@ -29,6 +38,7 @@ export default function CreateTile() {
     const pushTile = async () => {
 
         try {
+            // console.log("svg", svg)
             const res = !!data && !!svg && !!text && await fetch('/api/push_tile', {
                 method: 'post',
                 body: JSON.stringify({
@@ -59,10 +69,12 @@ export default function CreateTile() {
                     <DrawTile data={data} setSVG={setSVG} requestData={requestData} />
                 </Group >
             </Container>
+
             <ButtonContainer>
                 <PrimaryBtn
+                    loading={analysing}
                     disabled={!data || analysing}
-                    onClick={() => setRequestData(true)}
+                    onClick={() => setRequestData(!requestData)}
                 >Save</PrimaryBtn>
 
             </ButtonContainer>
@@ -81,7 +93,8 @@ const Container = styled.div`
     .group{
         display: flex;
         flex-direction: column;
-        justify-content: center
+        justify-content: center;
+        min-height: 500px;
     }
     > * {
         flex: 1 1 350px;

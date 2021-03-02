@@ -1,6 +1,7 @@
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import styled, { keyframes } from 'styled-components';
-import { DominoSpinner } from "react-spinners-kit";
+import { GuardSpinner } from "react-spinners-kit";
 import brand from './brand';
 import dompurify from 'dompurify';
 
@@ -10,7 +11,7 @@ export const Group = styled.div`
     border-radius: ${borderRadius};
     padding: .5em;
     position: relative;
-    min-height: 500px;
+    // min-height: 500px;
 `
 
 export const P = ({ children, className = '' }, props) => {
@@ -29,12 +30,43 @@ export const P = ({ children, className = '' }, props) => {
 
 export function Loader({ loading, translucent = false }) {
 
+    const [currPath, setCurrPath] = useState(0);
+
+    const paths = [
+        "M0,200 L100,0 L200,200 M0, 110 L200,110 M20, 90 L180, 90",
+        "M0,0 Q200,0 200,200 M200,0 L0, 200",
+        "M2,2 Q200,2 200,200 M2,20 Q180,20 180,200 M2,40 Q160,40 160,200",
+        "M0,20 Q180,20 180,200M200,180 Q20,180 20,0",
+        "M100,0 L100,200  M75, 100 L125, 100 M50, 75 L150, 50 M50, 150 L150, 125"
+    ]
+
+    useEffect(() => {
+        const animInterval = setInterval(() => {
+            setCurrPath(prevState => {
+                let val = (prevState + 1) % paths.length
+                console.log(val)
+                return val
+            })
+
+        }, 2000)
+
+        return () => clearInterval(animInterval);
+    }, [])
+
     return loading ? (
-        <LoadingScreen translucent={translucent}>
-            <DominoSpinner size={120} color={brandColor} loading={true}></DominoSpinner>
+        <LoadingScreen translucent={translucent} key={Math.random() * 10}>
+            <div className="svg-container">
+                <svg viewBox="0 0 200 200" class="icon">
+                    <path d={paths[currPath]}></path>
+                </svg>
+            </div>
         </LoadingScreen>
     ) : <></>
 }
+
+const fade = keyframes`
+from { opacity: 0; }
+`
 
 const LoadingScreen = styled.div`
     position: absolute;
@@ -43,7 +75,7 @@ const LoadingScreen = styled.div`
     right: 0;
     bottom: 0;
     background: ${({ theme }) => theme.background};
-    opacity: ${({ translucent }) => translucent ? '0.8' : '1'};
+    // opacity: ${({ translucent }) => translucent ? '0.8' : '1'};
     display: flex; 
     align-items: center;
     justify-content: center; 
@@ -51,23 +83,52 @@ const LoadingScreen = styled.div`
     min-height: 40vh;
     z-index: 100;
     transition: .5s ease-in-out;
+    .svg-container {
+        animation: ${fade} 1s infinite alternate;
+        width: 100px;
+        height: 100px;
+        transition: .5s ease-out;
+        svg {
+            transition: .5s ease-out;
+            path {
+                transition: .5s ease-out;
+                fill: none;
+                stroke: black;
+                stroke-width: 8px;
+            }
+        }
+    }
 `
 
 const BtnStyles = styled.button`
     padding: 1em 2em;
     border: none; 
+    display: flex; 
+    align-items: center; 
+    svg {
+        position: relative;
+        top: 2px;
+        margin-left: 1em;   
+    }
+    background: ${({ theme }) => theme.brandColor};
+    color: whitesmoke;
+    opacity: ${({ disabled }) => disabled ? '.3' : '1'};
+    transition: .5s ease-out;
 `
+
 export const PrimaryBtn = (props) => {
-    const { href = false, children } = props
+    const { href = false, children, analysing } = props
+    console.log({ analysing })
     return href ?
         (
             <Link href={href}>
                 <BtnStyles
                     {...props}
                 >
-                    <h3>
-                        {children}
-                    </h3>
+                    {!analysing ?
+                        children
+                        : 'loading...'
+                    }
                 </BtnStyles>
             </Link>
         ) :
@@ -75,9 +136,10 @@ export const PrimaryBtn = (props) => {
             <BtnStyles
                 {...props}
             >
-                <h3>
-                    {children}
-                </h3>
+                {!analysing ?
+                    children
+                    : 'loading...'
+                }
             </BtnStyles>
         )
 }
@@ -86,12 +148,9 @@ export const TextArea = styled.textarea`
     min-height: 50vh;
     border: none; 
     background: transparent;
-    font-size: 1.3em;
+    font-size: 1.2em;
     padding-top: 1em;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
     resize: vertical;
-    line-height: 31px;
     padding: 2em;
     border-right: 1px solid lightgrey;
     border-bottom: 1px solid lightgrey;

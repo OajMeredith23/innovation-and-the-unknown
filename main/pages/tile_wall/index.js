@@ -69,7 +69,7 @@ export async function getServerSideProps() {
         .collection("tiles_test")
         .find({})
         .sort({ createdAt: -1 })
-        .limit(20)
+        // .limit(50)
         .toArray();
 
     return {
