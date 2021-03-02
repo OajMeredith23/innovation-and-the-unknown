@@ -15,7 +15,7 @@ const Container = styled.main`
 export const theme = {
   // background: 'rgba(245,245,245)',
   // brandColor: 'rgb(252, 186, 3)',
-  background: '#whitesmoke',
+  background: 'snow',
   brandColor: '#5dd2a2',
   textColor: '#555',
   textColor2: 'whitesmoke',

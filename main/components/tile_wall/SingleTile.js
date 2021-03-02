@@ -70,6 +70,7 @@ const Container = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
+    background: ${({ theme }) => theme.background};
     .group{
         flex: 1 1 350px;
         display: flex; 
