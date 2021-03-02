@@ -15,7 +15,7 @@ const TileContainer = styled.div`
 const Tile = styled.div`
     width: ${TILE_SIZE};
     height: ${TILE_SIZE};
-    background: whitesmoke; 
+    background: ${({ theme }) => theme.background}; 
     margin: .25em;
     cursor: pointer; 
 `

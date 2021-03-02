@@ -3,8 +3,7 @@ import styled from 'styled-components';
 import * as d3 from 'd3';
 import { JellyfishSpinner } from "react-spinners-kit";
 import { PrimaryBtn, Loader } from '../../styles/ui_elements'
-
-
+import { theme } from '../../pages/_app'
 const emotion_shapes = {
     admiration: "M0,200 L100,0 L200,200",
     amusement: "M0,0 C50,100 150,100 200,0 M0,200 C50,100 150,100 200,200",
@@ -128,7 +127,7 @@ export default function DrawTile({ data, setSVG, requestData }) {
             .duration(500)
             .attr('d', (d, i) => emotion_shapes[data[Math.floor(Math.random() * data.length)].category])
             .attr("fill", "none")
-            .attr('stroke', '#111')
+            .attr('stroke', theme.textColor)
             .attr('stroke-linecap', 'round')
             .attr('stroke-width', (d, i) => 5)
     }

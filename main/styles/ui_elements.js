@@ -4,6 +4,7 @@ import styled, { keyframes } from 'styled-components';
 import { GuardSpinner } from "react-spinners-kit";
 import brand from './brand';
 import dompurify from 'dompurify';
+import { theme } from '../pages/_app'
 
 const { brandColor, background, borderRadius } = brand;
 
@@ -29,7 +30,6 @@ export const P = ({ children, className = '' }, props) => {
 }
 
 export function Loader({ loading, translucent = false }) {
-
     const [currPath, setCurrPath] = useState(0);
 
     const paths = [
@@ -40,23 +40,21 @@ export function Loader({ loading, translucent = false }) {
         "M100,0 L100,200  M75, 100 L125, 100 M50, 75 L150, 50 M50, 150 L150, 125"
     ]
 
-    useEffect(() => {
+    useEffect(() => { // Cycle currPath the state value through the amount of paths in the array
         const animInterval = setInterval(() => {
             setCurrPath(prevState => {
                 let val = (prevState + 1) % paths.length
-                console.log(val)
                 return val
             })
-
-        }, 2000)
-
-        return () => clearInterval(animInterval);
+        }, 2000) // change every 2000 milliseconds
+        return () => clearInterval(animInterval); // When this component is unmounted, stop repeating.
     }, [])
 
     return loading ? (
         <LoadingScreen translucent={translucent} key={Math.random() * 10}>
             <div className="svg-container">
                 <svg viewBox="0 0 200 200" class="icon">
+                    {/* Set the svg path to the value at the index equal to the current currPath state */}
                     <path d={paths[currPath]}></path>
                 </svg>
             </div>
@@ -93,7 +91,7 @@ const LoadingScreen = styled.div`
             path {
                 transition: .5s ease-out;
                 fill: none;
-                stroke: black;
+                stroke: ${({ theme }) => theme.textColor};
                 stroke-width: 8px;
             }
         }
@@ -111,9 +109,12 @@ const BtnStyles = styled.button`
         margin-left: 1em;   
     }
     background: ${({ theme }) => theme.brandColor};
-    color: whitesmoke;
     opacity: ${({ disabled }) => disabled ? '.3' : '1'};
     transition: .5s ease-out;
+    color: ${({ theme }) => theme.background};
+    > * {
+        color: ${({ theme }) => theme.background};
+    }
 `
 
 export const PrimaryBtn = (props) => {
@@ -154,6 +155,11 @@ export const TextArea = styled.textarea`
     padding: 2em;
     border-right: 1px solid lightgrey;
     border-bottom: 1px solid lightgrey;
+    color: ${({ theme }) => theme.textColor};
+    &::-webkit-input-placeholder{
+        color: ${({ theme }) => theme.textColor};
+        opacity: .5;
+    }
     &::-webkit-scrollbar {
         width: .25em;
     }

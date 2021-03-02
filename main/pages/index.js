@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <Container>
 
-      <Group className="group centre-children">
+      <Group className="group centre-children column">
         <p>
           Tell all the truth but tell it slant —
           <br />
@@ -30,12 +30,12 @@ export default function Home() {
             Or every man be blind —
           <br />
           <br />
-          <i>
-            <h2>
-              — Emily Dickinson
-            </h2>
-          </i>
         </p>
+        <h2>
+          <i>
+            — Emily Dickinson
+            </i>
+        </h2>
       </Group>
       <Group
         className="group centre-children"
@@ -54,17 +54,25 @@ export default function Home() {
 
 
 const Container = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  min-height: calc(80vh - 4em);
+  // display: flex;
+  // flex-wrap: wrap;
+  // flex-direction: column;
+  justify-content: space-around;
   .group{
+    margin: 2em 0;
     flex: 1 1 350px;
-  }
+    p {
+      text-align: center;
+    }
+  } 
 
   .centre-children{
     display: flex; 
     justify-content: center;
     align-items: center;
+  }
+
+  .column{
+    flex-direction: column;
   }
 `
