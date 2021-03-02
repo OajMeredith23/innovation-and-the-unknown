@@ -38,8 +38,6 @@ const emotion_shapes = {
 
 export default function DrawTile({ data, setSVG, requestData }) {
 
-
-
     const svgContainer = useRef(null);
     const [svgBody, setSvgBody] = useState(null);
     const [size, setSize] = useState(null);
@@ -79,6 +77,11 @@ export default function DrawTile({ data, setSVG, requestData }) {
         //     // { category: 'surprise', value: 0.1 },
         //     { category: 'excitement', value: 0.1 },
         // ]
+
+        let index = 26
+        data = [{ category: Object.entries(emotion_shapes)[index][0], value: 1 }]
+
+        console.log(Object.entries(emotion_shapes)[index], " =>", data)
 
         // The data representation is a matrix where the dimensions on each axis are equal to the number of data points 
         // e.g, if the data contains 5 emotions it would be a 5x5 matrix .
@@ -146,13 +149,14 @@ export default function DrawTile({ data, setSVG, requestData }) {
     useEffect(() => {
         const svg = svgContainer.current.innerHTML
         console.log({ svg })
-        setSVG(requestData ? svg : null);
+        // setSVG(requestData ? svg : null);
+        setSVG(svg);
     }, [requestData])
 
     return (
         <SVGContainer ref={svgContainer}>
 
-            {!data && <Loader loading={true} />}
+            {!data && <Loader loading={!data} />}
         </SVGContainer >
     )
 

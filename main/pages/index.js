@@ -59,7 +59,6 @@ const Container = styled.div`
   // flex-direction: column;
   justify-content: space-around;
   .group{
-    margin: 2em 0;
     flex: 1 1 350px;
     p {
       text-align: center;
@@ -73,6 +72,8 @@ const Container = styled.div`
   }
 
   .column{
+    margin-top: -2em;
+    margin-bottom: 2em;
     flex-direction: column;
   }
 `

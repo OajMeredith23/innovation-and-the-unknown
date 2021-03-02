@@ -28,7 +28,7 @@ export default function CreateTile() {
     }, [requestData])
 
     useEffect(() => {
-        // console.log({ svg })
+        console.log(svg)
         if (svg === null || requestData === false) { return }
         else {
             pushTile();

@@ -53,7 +53,9 @@ const GlobalStyle = createGlobalStyle`
   
   h1,h2,h3,h4,h5 {
     // font-weight: 700;
-    font-family: 'EB Garamond', sans-serif;
+    // font-family: 'EB Garamond', sans-serif;
+    // font-family: 'Rock Salt', sans-serif;
+    font-family: 'DotGothic16', sans-serif;
     color: ${({ theme }) => theme.textColor};
   }
   
@@ -75,13 +77,13 @@ function MyApp({ Component, pageProps }) {
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <Container>
-        <GoogleFonts href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Montserrat:wght@300;500&display=swap" />
+        <GoogleFonts href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" />
         <Head>
           <title>Folktiles</title>
-          <link rel="icon" href="/favicon.ico" />
+          {/* <link rel="icon" href="/favicon.ico" />
           <link rel="preconnect"
             href="https://fonts.gstatic.com"
-            crossorigin />
+            crossorigin /> */}
         </Head>
 
         <NavBar isHome={router.pathname === '/'}>
