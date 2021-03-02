@@ -34,6 +34,8 @@ function MyApp({ Component, pageProps }) {
         <Head>
           <title>Innovation And The Unknown</title>
           <link rel="icon" href="/favicon.ico" />
+          {/* <link rel="preconnect" href="https://fonts.gstatic.com"> */}
+          <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Montserrat:wght@300;500&display=swap" rel="stylesheet"></link>
         </Head>
         <NavBar>
           <Link href="/">

@@ -88,7 +88,8 @@ export const TextArea = styled.textarea`
     background: transparent;
     font-size: 1.3em;
     padding-top: 1em;
-    font-family: 'Baskerville';
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
     resize: vertical;
     line-height: 31px;
     padding: 2em;
