@@ -15,9 +15,10 @@ const Container = styled.main`
 export const theme = {
   // background: 'rgba(245,245,245)',
   // brandColor: 'rgb(252, 186, 3)',
-  background: 'whitesmoke',
-  brandColor: '#333',
-  textColor: '#333',
+  background: '#whitesmoke',
+  brandColor: '#5dd2a2',
+  textColor: '#555',
+  textColor2: 'whitesmoke',
   borderRadius: '.23em',
   shadow: `0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)`,
 }
@@ -50,7 +51,8 @@ const GlobalStyle = createGlobalStyle`
   }
   
   h1,h2,h3,h4,h5 {
-    font-weight: 300;
+    // font-weight: 700;
+    font-family: 'EB Garamond', sans-serif;
     color: ${({ theme }) => theme.textColor};
   }
   
@@ -81,9 +83,9 @@ function MyApp({ Component, pageProps }) {
 
         <NavBar isHome={router.pathname === '/'}>
           <Link href="/">
-            <h3>
+            <h1>
               Folktiles
-            </h3>
+            </h1>
           </Link>
         </NavBar>
 
@@ -103,5 +105,8 @@ const NavBar = styled.nav`
     font-size: 300%;
   `}
   transition: .4s ease-in-out;
+  h1 {
+    color: ${({ theme }) => theme.brandColor};
+  }
 `
 export default MyApp
