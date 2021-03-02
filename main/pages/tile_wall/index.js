@@ -15,7 +15,7 @@ const TileContainer = styled.div`
 const Tile = styled.div`
     width: ${TILE_SIZE};
     height: ${TILE_SIZE};
-    background: whitesmoke; 
+    background: ${({ theme }) => theme.background}; 
     margin: .25em;
     cursor: pointer; 
 `
@@ -69,7 +69,7 @@ export async function getServerSideProps() {
         .collection("tiles_test")
         .find({})
         .sort({ createdAt: -1 })
-        .limit(20)
+        // .limit(50)
         .toArray();
 
     return {

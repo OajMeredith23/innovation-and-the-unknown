@@ -726,7 +726,9 @@ export default function AnalyseText({ setData, setLoading, setText, setAnalysing
         await loadEncoder();
         await fetchModel();
         console.log("Done Loading")
-        return setLoading(false);
+        setTimeout(() => {
+            return setLoading(false);
+        }, 2000)
     }
 
 
