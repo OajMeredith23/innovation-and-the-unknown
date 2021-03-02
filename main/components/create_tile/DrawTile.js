@@ -129,7 +129,7 @@ export default function DrawTile({ data, setSVG, requestData }) {
             .attr("fill", "none")
             .attr('stroke', theme.textColor)
             .attr('stroke-linecap', 'round')
-            .attr('stroke-width', (d, i) => 5)
+            .attr('stroke-width', (d, i) => 8);
     }
 
 
