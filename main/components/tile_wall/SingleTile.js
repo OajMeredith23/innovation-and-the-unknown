@@ -11,6 +11,7 @@ export default function SingleTile({ tile }) {
     console.log(tile)
 
     const router = useRouter();
+    console.log(router.pathname)
 
     function close() {
         console.log('close')
@@ -20,9 +21,16 @@ export default function SingleTile({ tile }) {
     return (
         <SingleTileModal>
             <Head>
-                <title>Made with Folktiles</title>
+                <title>Folktiles</title>
+                <meta property="og:url" content={`https://folktiles.vercel.app${router.pathname}`} />
+                <meta property="og:type" content="website" />
                 <meta property="og:title" content="Made with Folktiles" />
-                <meta property="og:description" content={tile?.text} />
+                <meta property="og:description" content={tile.text} />
+
+                <meta property="twitter:domain" content="folktiles.vercel.app" />
+                <meta property="twitter:url" content={`https://folktiles.vercel.app${router.pathname}`} />
+                <meta name="twitter:title" content="Innovation And The Unknown" />
+                <meta name="twitter:description" content={tile.text} />
             </Head>
             <CloseBtn onClick={() => close()}>
                 <X />
