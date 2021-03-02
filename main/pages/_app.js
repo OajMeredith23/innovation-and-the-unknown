@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import '../styles/globals.css'
 import styled, { ThemeProvider } from 'styled-components';
 import { createGlobalStyle } from 'styled-components'
+import { GoogleFonts } from "next-google-fonts";
 
 const Container = styled.main`
   padding: .5em;
@@ -74,13 +75,13 @@ function MyApp({ Component, pageProps }) {
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <Container>
+        <GoogleFonts href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Montserrat:wght@300;500&display=swap" />
         <Head>
           <title>Folktiles</title>
           <link rel="icon" href="/favicon.ico" />
           <link rel="preconnect"
             href="https://fonts.gstatic.com"
             crossorigin />
-          <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Montserrat:wght@300;500&display=swap" rel="stylesheet"></link>
         </Head>
 
         <NavBar isHome={router.pathname === '/'}>
