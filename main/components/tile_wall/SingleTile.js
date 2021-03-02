@@ -42,11 +42,11 @@ export default function SingleTile({ tile }) {
     return (
         <SingleTileModal>
             <Head>
-                <title>Folktiles</title>
+                <title>Made with Folktiles</title>
                 <meta property="og:url" content={`https://folktiles.vercel.app${router.pathname}`} />
                 <meta property="og:type" content="website" />
                 <meta property="og:title" content="Made with Folktiles" />
-                <meta property="og:description" content={tile.text} />
+                <meta property="og:description" content={`Folktile: ${tile.text}`} />
 
                 <meta property="twitter:domain" content="folktiles.vercel.app" />
                 <meta property="twitter:url" content={`https://folktiles.vercel.app${router.pathname}`} />
