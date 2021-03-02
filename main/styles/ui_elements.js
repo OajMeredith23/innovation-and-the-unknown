@@ -111,9 +111,9 @@ const BtnStyles = styled.button`
     background: ${({ theme }) => theme.brandColor};
     opacity: ${({ disabled }) => disabled ? '.3' : '1'};
     transition: .5s ease-out;
-    color: ${({ theme }) => theme.background};
+    color: ${({ theme }) => theme.textColor2};
     > * {
-        color: ${({ theme }) => theme.background};
+        color: ${({ theme }) => theme.textColor2};
     }
 `
 
@@ -153,8 +153,8 @@ export const TextArea = styled.textarea`
     padding-top: 1em;
     resize: vertical;
     padding: 2em;
-    border-right: 1px solid lightgrey;
-    border-bottom: 1px solid lightgrey;
+    border-right: 1px solid #f3f3f3;
+    // border-bottom: 1px solid lightgrey;
     color: ${({ theme }) => theme.textColor};
     &::-webkit-input-placeholder{
         color: ${({ theme }) => theme.textColor};

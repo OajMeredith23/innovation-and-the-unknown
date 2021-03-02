@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import AnalyseText from '../../components/create_tile/AnalyseText'
 import DrawTile from '../../components/create_tile/DrawTile'
 import { Group, Loader, PrimaryBtn } from '../../styles/ui_elements'
-
+import { ArrowRight } from 'react-feather'
 const isDevMode = process.env.NEXT_PUBLIC_ENV === 'dev'
 
 export default function CreateTile() {
@@ -75,7 +75,12 @@ export default function CreateTile() {
                     loading={analysing}
                     disabled={!data || analysing}
                     onClick={() => setRequestData(!requestData)}
-                >Save</PrimaryBtn>
+                >
+                    <h2>
+                        Save
+                    </h2>
+                    <ArrowRight />
+                </PrimaryBtn>
 
             </ButtonContainer>
         </div>
