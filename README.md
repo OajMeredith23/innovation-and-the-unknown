@@ -40,7 +40,7 @@ This data is then passed up to the parent component, and passed down to the Draw
 This components receives the data from the sentiment recognition algorithm. 
 Each of the possible 27 emotions has an associated SVG shape. 
 We create a matrix, the length of each axis is equal to the number of non-zero sentiment values, up to a maximum of five. 
-This matrix is used to create a visualisation, upon each point a random shape matches 1 of the recognised sentiments is chosen for that point on the matrix. This shape is then drawn at the appropriate point within the canvas. 
+This matrix is used to create a visualisation, upon each point a random shape that matches one of the recognised sentiments is chosen for that point. This shape is then drawn at the appropriate point for its index within the canvas. 
 The result is a series of shapes that respond to the emotions present in a piece of text in a semi-random sense. And there is an increase in complexity with increased complexity in the data. 
 
 ### 3. Write/Read from the database
@@ -56,8 +56,6 @@ The MongoDB database in which the data is stored is read on initial load using G
 ## Thinking Further
 This is a proof of a concept, but the concept itself expands beyond what I've built here.
 Visualisation all the data-representations is done chronologically here, but it could be done in a multitude of different ways, below I've designed some of these possibilities. 
-
-
 
 ![Future Concept 1](assets/future-4.png)
 ![Future Concept 2](assets/future-3.png)
