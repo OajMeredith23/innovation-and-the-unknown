@@ -11,6 +11,8 @@ Folktiles uses sentiment recognition from user submitted text to create a data-r
 The  Folktiles project is a Next.js project that lives within the /main directory, other folders contain experiments in sentiment recognition algorithms and data visualisation.
 ## Main Functions
 
+![App function diagram](assets/app_diagram.png)
+
 Folktiles can be thought of as three component functions: 
 
 1. Sentiment Recognition (Tensorflow.js)
