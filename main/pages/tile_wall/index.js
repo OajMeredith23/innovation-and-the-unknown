@@ -15,7 +15,7 @@ const TileContainer = styled.div`
 const Tile = styled.div`
     width: ${TILE_SIZE};
     height: ${TILE_SIZE};
-    background: ${({ theme }) => theme.background}; 
+    background: whitesmoke; 
     margin: .25em;
     cursor: pointer; 
 `
@@ -36,7 +36,9 @@ export default function TileWall({ tiles }) {
         setTileSelected(tiles.find(tile => tile._id === router.query.tile));
     }, [router.query.tile])
 
-
+    useEffect(() => {
+        console.log(tileSelected)
+    }, [tileSelected])
     return (
         <>
             <TileContainer>
@@ -68,8 +70,8 @@ export async function getServerSideProps() {
     const tiles = await db
         .collection("tiles_test")
         .find({})
-        .sort({ createdAt: -1 })
-        // .limit(50)
+        .sort({ metacritic: -1 })
+        .limit(20)
         .toArray();
 
     return {
