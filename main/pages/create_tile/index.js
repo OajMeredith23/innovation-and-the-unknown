@@ -20,7 +20,6 @@ export default function CreateTile() {
     const [requestData, setRequestData] = useState(false);
 
     useEffect(() => {
-        console.log(svg)
         if (svg === null || requestData === false) { return }
         else {
             pushTile();
@@ -40,7 +39,6 @@ export default function CreateTile() {
                 })
             })
 
-            console.log("push result ", await res.json())
             router.push('/tile_wall')
 
         } catch (err) {
