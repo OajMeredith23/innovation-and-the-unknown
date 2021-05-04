@@ -4,11 +4,12 @@
 ![The Folktiles landing screen](assets/folktiles_home.png)
 # Folktiles
 
-Folktiles uses sentiment recognition from user submitted text to create a data-representation. This data representation (or data-tile, as I call them) is then written to a database, along with it's associated data. It can then be viewed alongside all other stories and tiles within a single UI. 
+Folktiles uses sentiment recognition (using Tensoflow.js) from user submitted text to create a data-representation (D3.js). This data representation (or data-tile, as I call them) is then written to a database (MongoDB), along with it's associated data. It can then be viewed alongside all other stories and tiles within a single UI. 
 
 ![The Folktiles data-representation being generated](assets/folktiles_data_representation.png)
 
-The  Folktiles project is a Next.js project that lives within the /main directory, other folders contain experiments in sentiment recognition algorithms and data visualisation.
+The  Folktiles project is built upon Next.js, it lives within the /main directory. Other folders contain experiments in sentiment recognition algorithms and data visualisation.
+
 ## Main Functions
 
 ![App function diagram](assets/app_diagram.png)
@@ -57,7 +58,7 @@ The MongoDB database in which the data is stored is read on initial load using G
 
 ## Thinking Further
 This is a proof of a concept, but the concept itself expands beyond what I've built here.
-Visualisation all the data-representations is done chronologically here, but it could be done in a multitude of different ways, below I've designed some of these possibilities. 
+The data-representations are displayed chronologically on the live site, but the project involved further possibilties. 
 
 ![Future Concept 1](assets/future-4.png)
 ![Future Concept 2](assets/future-3.png)
