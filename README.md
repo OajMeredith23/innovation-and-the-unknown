@@ -4,7 +4,7 @@
 ![The Folktiles landing screen](assets/folktiles_home.png)
 # Folktiles
 
-Folktiles uses sentiment recognition (using Tensoflow.js) from user submitted text to create a data-representation (D3.js). This data representation (or data-tile, as I call them) is then written to a database (MongoDB), along with it's associated data. It can then be viewed alongside all other stories and tiles within a single UI. 
+Folktiles uses sentiment recognition (using Tensorflow.js) from user submitted text to create a data-representation (D3.js). This data representation (or data-tile, as I call them) is then written to a database (MongoDB), along with it's associated data. It can then be viewed alongside all other stories and tiles within a single UI. 
 
 ![The Folktiles data-representation being generated](assets/folktiles_data_representation.png)
 
